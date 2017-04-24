@@ -1,10 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,18 +10,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * Activity para efetuar cadastro do usuário.
+ *
+ * @author Felipe
+ * @version 2017.04.23
+ */
 public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
-    JSONParser jsonParser = new JSONParser();
-    private static String url_create_user = "http://localhost/android_connect/create_user.php";
+    private static String REGISTER_URL = "http://www.appdoacao.esy.es/userRegister.php";
     private static final String TAG_SUCCESS = "success";
     EditText etName;
     EditText etEmail;
@@ -71,100 +80,71 @@ public class RegisterActivity extends AppCompatActivity {
         btCreate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                name = etName.getText().toString();
-                email = etName.getText().toString();
-                cpfcnpj = etName.getText().toString();
-                password = etName.getText().toString();
-                cep = etName.getText().toString();
-                adress = etName.getText().toString();
-                adressnumber = etName.getText().toString();
-                complement = etName.getText().toString();
-                district = etName.getText().toString();
-                city = etName.getText().toString();
-                state = etName.getText().toString();
-                new CreateNewUser().execute();
+                registerUser();
             }
         });
     }
 
-    class CreateNewUser extends AsyncTask<String, String, String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pDialog = new ProgressDialog(RegisterActivity.this);
-            pDialog.setMessage("Registering User..");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-        }
-
-        protected String doInBackground(String... args) {
-
-            // Building Parameters
-            /*
-            ContentValues params = new ContentValues();
-            params.put("nome", name);
-            params.put("email", email);
-            params.put("cpfcnpj", cpfcnpj);
-            params.put("tipo", "f");
-            params.put("password", password);
-            params.put("cep", cep);
-            params.put("endereco", adress);
-            params.put("numero", adressnumber);
-            params.put("complemento", complement);
-            params.put("bairro", district);
-            params.put("cidade", city);
-            params.put("estado", state);
-            */
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("name", name));
-            params.add(new BasicNameValuePair("email", email));
-            params.add(new BasicNameValuePair("cpfcnpj", cpfcnpj));
-            params.add(new BasicNameValuePair("tipo", "f"));
-            params.add(new BasicNameValuePair("password", password));
-            params.add(new BasicNameValuePair("cep", cep));
-            params.add(new BasicNameValuePair("endereco", adress));
-            params.add(new BasicNameValuePair("numero", adressnumber));
-            params.add(new BasicNameValuePair("complemento", complement));
-            params.add(new BasicNameValuePair("bairro", district));
-            params.add(new BasicNameValuePair("cidade", city));
-            params.add(new BasicNameValuePair("estado", state));
-            // getting JSON Object
-            // Note that create product url accepts POST method
-            JSONObject json = jsonParser.makeHttpRequest(url_create_user,
-                    "POST", params);
-
-
-            // check log cat fro response
-            Log.d("Create Response", json.toString());
-
-            // check for success tag
-            try {
-                int success = json.getInt(TAG_SUCCESS);
-
-                if (success == 1) {
-                    // successfully created product
-                    Context context = getApplicationContext();
-                    CharSequence text = "Conta criada com sucesso!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                    // closing this screen
-                    finish();
-                } else {
-                    // failed to create product
-                    Context context = getApplicationContext();
-                    CharSequence text = "Erro na criação da conta!";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
+    /**
+     * Efetua o registro do usuário no banco de dados.
+     */
+    private void registerUser(){
+        name = etName.getText().toString();
+        email = etEmail.getText().toString();
+        cpfcnpj = etCpfcnpj.getText().toString();
+        password = etPassword.getText().toString();
+        cep = etCep.getText().toString();
+        adress = etAdress.getText().toString();
+        adressnumber = etAdressNumber.getText().toString();
+        complement = etComplement.getText().toString();
+        district = etDistrict.getText().toString();
+        city = etCity.getText().toString();
+        state = etState.getText().toString();
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Toast.makeText(RegisterActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
+                            if(jsonObject.getInt("sucess") == 1){
+                                Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
+                                startActivity(i);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Erro na conexao", error.toString());
+                        Toast.makeText(RegisterActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
+        ){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put("nome", name);
+                params.put("email", email);
+                params.put("cpfcnpj", cpfcnpj);
+                params.put("tipo", "f");
+                params.put("password", password);
+                params.put("cep", cep);
+                params.put("endereco", adress);
+                params.put("numero", adressnumber);
+                params.put("complemento", complement);
+                params.put("bairro", district);
+                params.put("cidade", city);
+                params.put("estado", state);
+                return params;
             }
-
-            return null;
-        }
-
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
+
 }
