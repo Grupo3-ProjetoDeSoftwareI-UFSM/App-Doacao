@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private static String REGISTER_URL = "http://www.appdoacao.esy.es/userRegister.php";
     private static final String TAG_SUCCESS = "success";
+    private JSONObject dadosEndereco;
     EditText etName;
     EditText etEmail;
     EditText etCpfcnpj;
@@ -75,6 +78,43 @@ public class RegisterActivity extends AppCompatActivity {
         etDistrict = (EditText) findViewById(R.id.input_district);
         etCity = (EditText) findViewById(R.id.input_city);
         etState = (EditText) findViewById(R.id.input_state);
+        //Monitora alterações no campo de CEP para buscar dados do endereço
+        etCep.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 8){
+                    verificaCep(s.toString());
+                    if(dadosEndereco != null){
+                        try {
+                            if(dadosEndereco.getString("erro") == "true"){
+                                etCep.setError("CEP inválido");
+                            }
+                            else if(dadosEndereco.getString("erroconexao") == "true"){
+                                etCep.setError("Sem internet");
+                            }
+                            else{
+                                etAdress.setText(dadosEndereco.getString("logradouro"));
+                                etDistrict.setText(dadosEndereco.getString("bairro"));
+                                etCity.setText(dadosEndereco.getString("localidade"));
+                                etState.setText(dadosEndereco.getString("uf"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
         //Button
         btCreate = (Button) findViewById(R.id.button_createAccount);
         btCreate.setOnClickListener(new View.OnClickListener(){
@@ -143,6 +183,53 @@ public class RegisterActivity extends AppCompatActivity {
                 return params;
             }
         };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    /**
+     * Verifica CEP utilizando o webservice VIACEP
+     * Retorna JSONObject com dados do endereço se CEP for valido
+     * Retorna JSONObject com key Erro == true caso CEP seja inválido
+     */
+    private void verificaCep(String cep){
+        String url = "https://viacep.com.br/ws/" + cep + "/json/";
+        final String erroConexao = "{\"erroconexao\": \"true\"}";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response", response);
+                        try {
+                            dadosEndereco = new JSONObject(response);
+                            if(dadosEndereco.has("erro")){
+                                etCep.setError("CEP inválido");
+                            }
+                            else {
+                                etAdress.setText(dadosEndereco.getString("logradouro"));
+                                etDistrict.setText(dadosEndereco.getString("bairro"));
+                                etCity.setText(dadosEndereco.getString("localidade"));
+                                etState.setText(dadosEndereco.getString("uf"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Erro na conexao", error.toString());
+                        try {
+                            dadosEndereco = new JSONObject(erroConexao);
+                            etCep.setError("Sem internet");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(RegisterActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }

@@ -45,6 +45,7 @@
                 android:id="@+id/input_cpfcnpj"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="14"
                 android:hint="@string/cpf_cnpj" />
 
         </android.support.design.widget.TextInputLayout>
@@ -70,6 +71,7 @@
                 android:id="@+id/input_cep"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLength="8"
                 android:hint="@string/cep"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
