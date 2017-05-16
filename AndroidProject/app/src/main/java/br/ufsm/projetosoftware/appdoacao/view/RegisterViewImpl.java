@@ -44,6 +44,9 @@ public class RegisterViewImpl implements RegisterView{
             }
         });
         etCep.addTextChangedListener(new TextWatcher() {
+
+            boolean isUpdating;
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -51,7 +54,15 @@ public class RegisterViewImpl implements RegisterView{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                String str;
+                if(isUpdating){
+                    isUpdating = false;
+                }else if(s.length() > 5 && !s.toString().contains("-")){
+                    str = new StringBuilder(s.toString()).insert(5, "-").toString();
+                    isUpdating = true;
+                    etCep.setText(str);
+                    etCep.setSelection(str.length());
+                }
             }
 
             @Override
@@ -128,7 +139,7 @@ public class RegisterViewImpl implements RegisterView{
 
     @Override
     public String getCep() {
-        return etCep.getText().toString();
+        return etCep.getText().toString().replaceAll("-", "");
     }
 
     @Override
@@ -159,6 +170,11 @@ public class RegisterViewImpl implements RegisterView{
     @Override
     public String getState() {
         return etState.getText().toString();
+    }
+
+    @Override
+    public void setErrorCEP(String error) {
+        etCep.setError(error);
     }
 
     @Override

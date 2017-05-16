@@ -15,4 +15,8 @@ public final class UserDataUtil {
     public static boolean isPasswordValid(String password){
         return password.length() > 4;
     }
+
+    public static boolean isCEPValid(String cep){
+        return cep.length() == 8;
+    }
 }

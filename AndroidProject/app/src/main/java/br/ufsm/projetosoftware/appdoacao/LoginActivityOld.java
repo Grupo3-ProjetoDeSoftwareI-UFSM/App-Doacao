@@ -284,7 +284,7 @@ public class LoginActivityOld extends AppCompatActivity implements LoaderCallbac
 
     private void toSignUp(){
         Intent i;
-        i = new Intent(LoginActivityOld.this, RegisterActivity.class);
+        i = new Intent(LoginActivityOld.this, RegisterActivityOld.class);
         startActivity(i);
     }
 
@@ -412,7 +412,7 @@ public class LoginActivityOld extends AppCompatActivity implements LoaderCallbac
             }
             // TODO: register the new account here.
             Intent i;
-            i = new Intent(LoginActivityOld.this, RegisterActivity.class);
+            i = new Intent(LoginActivityOld.this, RegisterActivityOld.class);
             startActivity(i);
             return true;
         }

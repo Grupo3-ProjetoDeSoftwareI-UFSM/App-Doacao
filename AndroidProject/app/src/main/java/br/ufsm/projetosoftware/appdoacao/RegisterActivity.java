@@ -1,17 +1,10 @@
 package br.ufsm.projetosoftware.appdoacao;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
-
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,119 +19,86 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.ufsm.projetosoftware.appdoacao.view.RegisterView;
+import br.ufsm.projetosoftware.appdoacao.view.RegisterViewImpl;
+
 /**
- * Activity para efetuar cadastro do usuário.
- *
- * @author Felipe
- * @version 2017.04.23
+ * Created by Felipe on 15/05/2017.
  */
-public class RegisterActivity extends AppCompatActivity {
-    private ProgressDialog pDialog;
-    private static String REGISTER_URL = "http://www.appdoacao.esy.es/userRegister.php";
-    private static final String TAG_SUCCESS = "success";
+
+public class RegisterActivity extends AppCompatActivity implements RegisterView.RegisterButtonListener, RegisterView.CepListener{
+
+    private RegisterView registerView;
+    private String REGISTER_URL;
     private JSONObject dadosEndereco;
-    EditText etName;
-    EditText etEmail;
-    EditText etCpfcnpj;
-    EditText etPassword;
-    EditText etCep;
-    EditText etAdress;
-    EditText etAdressNumber;
-    EditText etComplement;
-    EditText etDistrict;
-    EditText etCity;
-    EditText etState;
-    Button btCreate;
-    String name;
-    String email;
-    String cpfcnpj;
-    String password;
-    String cep;
-    String adress;
-    String adressnumber;
-    String complement;
-    String district;
-    String city;
-    String state;
+    private String name;
+    private String email;
+    private String cpfcnpj;
+    private String password;
+    private String cep;
+    private String adress;
+    private String adressnumber;
+    private String complement;
+    private String district;
+    private String city;
+    private String state;
+    private boolean cepValido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        //Edit text
-        etName = (EditText) findViewById(R.id.input_name);
-        etEmail = (EditText) findViewById(R.id.input_email);
-        etCpfcnpj = (EditText) findViewById(R.id.input_cpfcnpj);
-        etPassword = (EditText) findViewById(R.id.input_password);
-        etCep = (EditText) findViewById(R.id.input_cep);
-        etAdress = (EditText) findViewById(R.id.input_adress);
-        etAdressNumber = (EditText) findViewById(R.id.input_adressnumber);
-        etComplement = (EditText) findViewById(R.id.input_complement);
-        etDistrict = (EditText) findViewById(R.id.input_district);
-        etCity = (EditText) findViewById(R.id.input_city);
-        etState = (EditText) findViewById(R.id.input_state);
-        //Monitora alterações no campo de CEP para buscar dados do endereço
-        etCep.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length() == 8){
-                    verificaCep(s.toString());
-                    if(dadosEndereco != null){
-                        try {
-                            if(dadosEndereco.getString("erro") == "true"){
-                                etCep.setError("CEP inválido");
-                            }
-                            else if(dadosEndereco.getString("erroconexao") == "true"){
-                                etCep.setError("Sem internet");
-                            }
-                            else{
-                                etAdress.setText(dadosEndereco.getString("logradouro"));
-                                etDistrict.setText(dadosEndereco.getString("bairro"));
-                                etCity.setText(dadosEndereco.getString("localidade"));
-                                etState.setText(dadosEndereco.getString("uf"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        });
-        //Button
-        btCreate = (Button) findViewById(R.id.button_createAccount);
-        btCreate.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                registerUser();
-            }
-        });
+        registerView = new RegisterViewImpl(getWindow().getDecorView().getRootView());
+        registerView.setRegisterListener(this);
+        registerView.setCepListener(this);
+        REGISTER_URL = getString(R.string.registerURL);
+        cepValido = false;
     }
 
-    /**
-     * Efetua o registro do usuário no banco de dados.
-     */
+    @Override
+    public void onCepTyped() {
+        String CEP =  registerView.getCep();
+        if(CEP.length() == 8){
+            verificaCep(CEP.toString());
+            /*if(dadosEndereco != null){
+                try {
+                    if(dadosEndereco.getString("erro") == "true"){
+                        registerView.setErrorCEP("CEP inválido");
+                    }
+                    else if(dadosEndereco.getString("erroconexao") == "true"){
+                        registerView.setErrorCEP("Sem internet");
+                    }
+                    else{
+                        registerView.setAdress(dadosEndereco.getString("logradouro"));
+                        registerView.setDistrict(dadosEndereco.getString("bairro"));
+                        registerView.setCity(dadosEndereco.getString("localidade"));
+                        registerView.setState(dadosEndereco.getString("uf"));
+                        cepValido = true;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }*/
+        }
+    }
+
+    @Override
+    public void onRegisterClick() {
+        registerUser();
+    }
+
     private void registerUser(){
-        name = etName.getText().toString();
-        email = etEmail.getText().toString();
-        cpfcnpj = etCpfcnpj.getText().toString();
-        password = etPassword.getText().toString();
-        cep = etCep.getText().toString();
-        adress = etAdress.getText().toString();
-        adressnumber = etAdressNumber.getText().toString();
-        complement = etComplement.getText().toString();
-        district = etDistrict.getText().toString();
-        city = etCity.getText().toString();
-        state = etState.getText().toString();
+        name = registerView.getName();
+        email = registerView.getEmail();
+        cpfcnpj = registerView.getCpfCnpj();
+        password = registerView.getPassword();
+        cep = registerView.getCep();
+        adress = registerView.getAdress();
+        adressnumber = registerView.getAdressNumber();
+        complement = registerView.getComplement();
+        district = registerView.getDistrict();
+        city = registerView.getCity();
+        state = registerView.getState();
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -147,8 +107,8 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             Toast.makeText(RegisterActivity.this, jsonObject.getString("message"), Toast.LENGTH_LONG).show();
-                            if(jsonObject.getInt("sucess") == 1){
-                                Intent i = new Intent(RegisterActivity.this, LoginActivityOld.class);
+                            if(jsonObject.getInt("success") == 1){
+                                Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
                                 startActivity(i);
                             }
                         } catch (JSONException e) {
@@ -186,11 +146,6 @@ public class RegisterActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    /**
-     * Verifica CEP utilizando o webservice VIACEP
-     * Retorna JSONObject com dados do endereço se CEP for valido
-     * Retorna JSONObject com key Erro == true caso CEP seja inválido
-     */
     private void verificaCep(String cep){
         String url = "https://viacep.com.br/ws/" + cep + "/json/";
         final String erroConexao = "{\"erroconexao\": \"true\"}";
@@ -202,13 +157,15 @@ public class RegisterActivity extends AppCompatActivity {
                         try {
                             dadosEndereco = new JSONObject(response);
                             if(dadosEndereco.has("erro")){
-                                etCep.setError("CEP inválido");
+                                registerView.setErrorCEP("CEP inválido");
+                                cepValido = false;
                             }
                             else {
-                                etAdress.setText(dadosEndereco.getString("logradouro"));
-                                etDistrict.setText(dadosEndereco.getString("bairro"));
-                                etCity.setText(dadosEndereco.getString("localidade"));
-                                etState.setText(dadosEndereco.getString("uf"));
+                                registerView.setAdress(dadosEndereco.getString("logradouro"));
+                                registerView.setDistrict(dadosEndereco.getString("bairro"));
+                                registerView.setCity(dadosEndereco.getString("localidade"));
+                                registerView.setState(dadosEndereco.getString("uf"));
+                                cepValido = true;
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -221,7 +178,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Log.d("Erro na conexao", error.toString());
                         try {
                             dadosEndereco = new JSONObject(erroConexao);
-                            etCep.setError("Sem internet");
+                            registerView.setErrorCEP("Sem internet");
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -232,5 +189,4 @@ public class RegisterActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
-
 }

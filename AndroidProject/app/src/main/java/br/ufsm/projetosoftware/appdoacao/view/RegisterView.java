@@ -44,6 +44,8 @@ public interface RegisterView extends ViewMvc{
 
     String getState();
 
+    void setErrorCEP(String error);
+
     void setRegisterListener(RegisterButtonListener listener);
 
     void setCepListener(CepListener listener);
