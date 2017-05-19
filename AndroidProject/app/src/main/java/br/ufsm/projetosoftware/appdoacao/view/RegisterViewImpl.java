@@ -178,6 +178,16 @@ public class RegisterViewImpl implements RegisterView{
     }
 
     @Override
+    public void setErrorEmail(String error) {
+        etEmail.setError(error);
+    }
+
+    @Override
+    public void setErrorCpfCnpj(String error) {
+        etCpfcnpj.setError(error);
+    }
+
+    @Override
     public void setRegisterListener(RegisterButtonListener listener) {
         registerButtonListener = listener;
     }

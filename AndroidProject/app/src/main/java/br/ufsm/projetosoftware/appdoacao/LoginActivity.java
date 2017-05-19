@@ -24,9 +24,9 @@ import br.ufsm.projetosoftware.appdoacao.view.LoginView;
 import br.ufsm.projetosoftware.appdoacao.view.LoginViewImpl;
 
 /**
+ * Activity da tela de login do usuário.
  * Created by Felipe on 13/05/2017.
  */
-
 public class LoginActivity extends AppCompatActivity
         implements LoginView.LoginButtonListener, LoginView.RegisterButtonListener {
 
@@ -44,17 +44,26 @@ public class LoginActivity extends AppCompatActivity
         LOGIN_URL = getString(R.string.loginURL);
     }
 
+    /**
+     * Método executado quando botão de login é pressionado.
+     */
     @Override
     public void onLoginClick() {
         attemptLogin();
 
     }
 
+    /**
+     * Método executado quando botão de registro é pressionado.
+     */
     @Override
     public void onRegisterClick() {
         toSignUp();
     }
 
+    /**
+     * Tenta fazer login verificando dados.
+     */
     private void attemptLogin(){
         loginView.setErrorEmail(null);
         loginView.setErrorPassword(null);
@@ -90,6 +99,11 @@ public class LoginActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Faz login do usuário verificando email e senha com o servidor.
+     * @param email
+     * @param password
+     */
     private void userLogin(String email, String password){
         final String mEmail =  email;
         final String mPassword = password;
@@ -154,6 +168,9 @@ public class LoginActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Inicia activity de registro do usuário.
+     */
     private void toSignUp(){
         Intent i;
         i = new Intent(LoginActivity.this, RegisterActivity.class);

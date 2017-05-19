@@ -23,9 +23,9 @@ import br.ufsm.projetosoftware.appdoacao.view.RegisterView;
 import br.ufsm.projetosoftware.appdoacao.view.RegisterViewImpl;
 
 /**
+ * Activity da tela de registro de usuário.
  * Created by Felipe on 15/05/2017.
  */
-
 public class RegisterActivity extends AppCompatActivity implements RegisterView.RegisterButtonListener, RegisterView.CepListener{
 
     private RegisterView registerView;
@@ -55,6 +55,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         cepValido = false;
     }
 
+
+    /**
+     * Método executado quando há alteração no texto do campo de CEP.
+     * Executa método verificaCep quando o CEP for digitado.
+     */
     @Override
     public void onCepTyped() {
         String CEP =  registerView.getCep();
@@ -82,11 +87,17 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         }
     }
 
+    /**
+     * Método executado quando é pressionado o botão Registrar.
+     */
     @Override
     public void onRegisterClick() {
         registerUser();
     }
 
+    /**
+     * Faz o registro do usuário.
+     */
     private void registerUser(){
         name = registerView.getName();
         email = registerView.getEmail();
@@ -99,6 +110,30 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         district = registerView.getDistrict();
         city = registerView.getCity();
         state = registerView.getState();
+        if(!UserDataUtil.isEmailValid(email)){
+            registerView.setErrorEmail("Email inválido");
+            return;
+        }
+        else if(!UserDataUtil.isCEPValid(cep)){
+            registerView.setErrorCEP("Cep inválido");
+            return;
+        }
+        else if(cpfcnpj.length() != 11 && cpfcnpj.length() != 14){
+            registerView.setErrorCpfCnpj("CPF ou CNPJ inválido");
+            return;
+        }
+        else if(cpfcnpj.length() == 11){
+            if(!UserDataUtil.isCPFValid(cpfcnpj)) {
+                registerView.setErrorCpfCnpj("CPF inválido");
+                return;
+            }
+        }
+        else if(cpfcnpj.length() == 14){
+            if(!UserDataUtil.isCNPJValid(cpfcnpj)) {
+                registerView.setErrorCpfCnpj("CNPJ inválido");
+                return;
+            }
+        }
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -146,6 +181,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * Verifica cep e preenche dados de enreço automaticamente conforme cep.
+     * @param cep
+     */
     private void verificaCep(String cep){
         String url = "https://viacep.com.br/ws/" + cep + "/json/";
         final String erroConexao = "{\"erroconexao\": \"true\"}";
