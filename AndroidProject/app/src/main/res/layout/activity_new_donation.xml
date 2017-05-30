@@ -7,38 +7,47 @@
     android:orientation="vertical" >
 
     <Spinner
-        android:id="@+id/spCategory"
+        android:id="@+id/spType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <Spinner
-        android:id="@+id/spSubCategory"
+        android:id="@+id/spCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
     <EditText
+        android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Titulo"/>
 
     <EditText
+        android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Descrição"/>
 
     <Button
+        android:id="@+id/btSelectImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Selecionar foto" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:visibility="invisible"
         app:srcCompat="@android:color/transparent" />
+
+    <Button
+        android:id="@+id/btRegisterDonation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar doação"/>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package br.ufsm.projetosoftware.appdoacao;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements MainView.NewDonat
 
     @Override
     public void onNewDonationClick() {
-
+        Intent toNewDonation = new Intent(MainActivity.this, NewDonationActivity.class);
+        startActivity(toNewDonation);
     }
 }
