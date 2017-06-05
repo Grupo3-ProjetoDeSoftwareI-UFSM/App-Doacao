@@ -16,17 +16,17 @@ import br.ufsm.projetosoftware.appdoacao.R;
 public class RegisterViewImpl implements RegisterView{
 
     private View rootView;
-    private EditText etName;
+    private EditText etNome;
     private EditText etEmail;
     private EditText etCpfcnpj;
-    private EditText etPassword;
+    private EditText etSenha;
     private EditText etCep;
-    private EditText etAdress;
-    private EditText etAdressNumber;
-    private EditText etComplement;
-    private EditText etDistrict;
-    private EditText etCity;
-    private EditText etState;
+    private EditText etEndereco;
+    private EditText etEnderecoNumero;
+    private EditText etComplemento;
+    private EditText etBairro;
+    private EditText etCidade;
+    private EditText etEstado;
     private Button btCreate;
     private RegisterButtonListener registerButtonListener;
     private CepListener cepListener;
@@ -73,17 +73,17 @@ public class RegisterViewImpl implements RegisterView{
     }
     
     private void initialize(){
-        etName = (EditText) rootView.findViewById(R.id.input_name);
+        etNome = (EditText) rootView.findViewById(R.id.input_nome);
         etEmail = (EditText) rootView.findViewById(R.id.input_email);
         etCpfcnpj = (EditText) rootView.findViewById(R.id.input_cpfcnpj);
-        etPassword = (EditText) rootView.findViewById(R.id.input_password);
+        etSenha = (EditText) rootView.findViewById(R.id.input_senha);
         etCep = (EditText) rootView.findViewById(R.id.input_cep);
-        etAdress = (EditText) rootView.findViewById(R.id.input_adress);
-        etAdressNumber = (EditText) rootView.findViewById(R.id.input_adressnumber);
-        etComplement = (EditText) rootView.findViewById(R.id.input_complement);
-        etDistrict = (EditText) rootView.findViewById(R.id.input_district);
-        etCity = (EditText) rootView.findViewById(R.id.input_city);
-        etState = (EditText) rootView.findViewById(R.id.input_state);
+        etEndereco = (EditText) rootView.findViewById(R.id.input_endereco);
+        etEnderecoNumero = (EditText) rootView.findViewById(R.id.input_endereconumero);
+        etComplemento = (EditText) rootView.findViewById(R.id.input_complemento);
+        etBairro = (EditText) rootView.findViewById(R.id.input_bairro);
+        etCidade = (EditText) rootView.findViewById(R.id.input_cidade);
+        etEstado = (EditText) rootView.findViewById(R.id.input_estado);
         btCreate = (Button) rootView.findViewById(R.id.button_createAccount);
     }
 
@@ -98,28 +98,28 @@ public class RegisterViewImpl implements RegisterView{
     }
 
     @Override
-    public void setAdress(String adress) {
-        etAdress.setText(adress);
+    public void setEndereco(String endereco) {
+        etEndereco.setText(endereco);
     }
 
     @Override
-    public void setDistrict(String district) {
-        etDistrict.setText(district);
+    public void setBairro(String bairro) {
+        etBairro.setText(bairro);
     }
 
     @Override
-    public void setCity(String city) {
-        etCity.setText(city);
+    public void setCidade(String cidade) {
+        etCidade.setText(cidade);
     }
 
     @Override
-    public void setState(String state) {
-        etState.setText(state);
+    public void setEstado(String estado) {
+        etEstado.setText(estado);
     }
 
     @Override
-    public String getName() {
-        return etName.getText().toString();
+    public String getNome() {
+        return etNome.getText().toString();
     }
 
     @Override
@@ -133,8 +133,8 @@ public class RegisterViewImpl implements RegisterView{
     }
 
     @Override
-    public String getPassword() {
-        return etPassword.getText().toString();
+    public String getSenha() {
+        return etSenha.getText().toString();
     }
 
     @Override
@@ -143,33 +143,33 @@ public class RegisterViewImpl implements RegisterView{
     }
 
     @Override
-    public String getAdress() {
-        return etAdress.getText().toString();
+    public String getEndereco() {
+        return etEndereco.getText().toString();
     }
 
     @Override
-    public String getAdressNumber() {
-        return etAdressNumber.getText().toString();
+    public String getEnderecoNumero() {
+        return etEnderecoNumero.getText().toString();
     }
 
     @Override
-    public String getComplement() {
-        return etComplement.getText().toString();
+    public String getComplemento() {
+        return etComplemento.getText().toString();
     }
 
     @Override
-    public String getDistrict() {
-        return etDistrict.getText().toString();
+    public String getBairro() {
+        return etBairro.getText().toString();
     }
 
     @Override
-    public String getCity() {
-        return etCity.getText().toString();
+    public String getCidade() {
+        return etCidade.getText().toString();
     }
 
     @Override
-    public String getState() {
-        return etState.getText().toString();
+    public String getEstado() {
+        return etEstado.getText().toString();
     }
 
     @Override

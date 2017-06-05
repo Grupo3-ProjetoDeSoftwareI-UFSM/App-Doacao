@@ -14,35 +14,35 @@ public interface RegisterView extends ViewMvc{
         void onCepTyped();
     }
 
-    void setAdress(String adress);
+    void setEndereco(String endereco);
 
-    void setDistrict(String district);
+    void setBairro(String bairro);
 
-    void setCity(String city);
+    void setCidade(String cidade);
 
-    void setState(String state);
+    void setEstado(String estado);
 
-    String getName();
+    String getNome();
 
     String getEmail();
 
     String getCpfCnpj();
 
-    String getPassword();
+    String getSenha();
 
     String getCep();
 
-    String getAdress();
+    String getEndereco();
 
-    String getAdressNumber();
+    String getEnderecoNumero();
 
-    String getComplement();
+    String getComplemento();
 
-    String getDistrict();
+    String getBairro();
 
-    String getCity();
+    String getCidade();
 
-    String getState();
+    String getEstado();
 
     void setErrorCEP(String error);
 

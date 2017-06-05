@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +21,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.ufsm.projetosoftware.appdoacao.network.IResultString;
+import br.ufsm.projetosoftware.appdoacao.network.LoginPost;
+import br.ufsm.projetosoftware.appdoacao.network.LoginResponse;
+import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
+import br.ufsm.projetosoftware.appdoacao.utils.UserDataUtil;
 import br.ufsm.projetosoftware.appdoacao.view.LoginView;
 import br.ufsm.projetosoftware.appdoacao.view.LoginViewImpl;
 
@@ -33,6 +39,9 @@ public class LoginActivity extends AppCompatActivity
     private LoginView loginView;
     private String sessionToken = null;
     private String LOGIN_URL;
+    private IResultString resultCallback = null;
+    private VolleyServiceString volleyService;
+    private final String POSTLOGIN = "POSTLOGIN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +51,8 @@ public class LoginActivity extends AppCompatActivity
         loginView.setLoginListener(this);
         loginView.setRegisterListener(this);
         LOGIN_URL = getString(R.string.loginURL);
+        initCallback();
+        volleyService = new VolleyServiceString(resultCallback, this);
     }
 
     /**
@@ -105,67 +116,9 @@ public class LoginActivity extends AppCompatActivity
      * @param password
      */
     private void userLogin(String email, String password){
-        final String mEmail =  email;
-        final String mPassword = password;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        loginView.showProgress(false);
-                        Log.d("Response", response);
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            int loginStatus = jsonObject.getInt("loginStatus");
-                            switch(loginStatus){
-                                //Retorna 1 caso o login tenha sido efetuado com sucesso
-                                case 1:
-                                    sessionToken = jsonObject.getString("sessionToken");
-                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                    i.putExtra("sessionToken", sessionToken);
-                                    startActivity(i);
-                                    break;
-                                //retorna 2 se o email não estiver cadastrado
-                                case 2:
-                                    loginView.setErrorEmail("Email não registrado");
-                                    break;
-                                //retorna 3 se a senha estiver incorreta
-                                case 3:
-                                    loginView.setErrorPassword("Senha incorreta");
-                                    break;
-                                case 4:
-                                    Toast.makeText(LoginActivity.this, "Erro ao efetuar login, tente novamente", Toast.LENGTH_LONG).show();
-                                    break;
-                                case 5:
-                                    loginView.setErrorEmail("Campo não preenchido.");
-                                    break;
-                                default:
-                                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Erro na conexao", error.toString());
-                        loginView.showProgress(false);
-                        Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }
-        ){
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put("email", mEmail);
-                params.put("password", mPassword);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-
+        LoginPost loginPost = new LoginPost(email, password);
+        String loginJSON = new Gson().toJson(loginPost);
+        volleyService.postDataVolley(POSTLOGIN, LOGIN_URL, loginJSON);
     }
 
     /**
@@ -175,5 +128,52 @@ public class LoginActivity extends AppCompatActivity
         Intent i;
         i = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(i);
+    }
+
+    private void postLoginSucess(String response){
+        LoginResponse loginResponse = new Gson().fromJson(response, LoginResponse.class);
+        switch(loginResponse.getLoginStatus()){
+            //Retorna 1 caso o login tenha sido efetuado com sucesso
+            case 1:
+                sessionToken = loginResponse.getSessionToken();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                i.putExtra("sessionToken", sessionToken);
+                startActivity(i);
+                break;
+            //retorna 2 se o email não estiver cadastrado
+            case 2:
+                loginView.setErrorEmail("Email não registrado");
+                break;
+            //retorna 3 se a senha estiver incorreta
+            case 3:
+                loginView.setErrorPassword("Senha incorreta");
+                break;
+            case 4:
+                Toast.makeText(LoginActivity.this, "Erro ao efetuar login, tente novamente", Toast.LENGTH_LONG).show();
+                break;
+            case 5:
+                loginView.setErrorEmail("Campo não preenchido.");
+                break;
+            default:
+                Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void initCallback() {
+        resultCallback = new IResultString() {
+            @Override
+            public void notifySuccess(String requestType, String response) {
+                if(requestType.equals(POSTLOGIN)){
+                    postLoginSucess(response);
+                }
+            }
+
+            @Override
+            public void notifyError(String requestType, VolleyError error) {
+                Log.d("Erro na conexao", error.toString());
+                loginView.showProgress(false);
+                Toast.makeText(LoginActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+            }
+        };
     }
 }

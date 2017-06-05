@@ -1,4 +1,4 @@
-package br.ufsm.projetosoftware.appdoacao;
+package br.ufsm.projetosoftware.appdoacao.utils;
 
 /**
  * Classe com métodos de verificação de dados do usuário.

@@ -15,7 +15,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/input_name"
+                android:id="@+id/input_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
@@ -56,7 +56,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_password"
+                android:id="@+id/input_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
@@ -82,7 +82,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_adress"
+                android:id="@+id/input_endereco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/adress"
@@ -94,7 +94,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_adressnumber"
+                android:id="@+id/input_endereconumero"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/number"
@@ -106,7 +106,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_complement"
+                android:id="@+id/input_complemento"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/complement"
@@ -118,7 +118,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_district"
+                android:id="@+id/input_bairro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/district"
@@ -130,7 +130,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_city"
+                android:id="@+id/input_cidade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/city"
@@ -142,7 +142,7 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:id="@+id/input_state"
+                android:id="@+id/input_estado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/state"
