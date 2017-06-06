@@ -16,6 +16,16 @@ public interface NewDonationView extends ViewMvc{
         void onRegisterDonationClick();
     }
 
+    String getTipo();
+
+    String getCategoria();
+
+    String getTitulo();
+
+    String getDescricao();
+
+    Bitmap getImage();
+
     void setImage(Bitmap image);
 
     void setSelectImageListener(SelectImageListener listener);

@@ -19,10 +19,10 @@ public class NewDonationViewImpl implements NewDonationView {
     private View rootView;
     private SelectImageListener selectImageListener;
     private RegisterDonationListener registerDonationListener;
-    private Spinner spType;
-    private Spinner spCategory;
-    private EditText etTitle;
-    private EditText etDescription;
+    private Spinner spTipo;
+    private Spinner spCategoria;
+    private EditText etTitulo;
+    private EditText etDescricao;
     private Button btSelectImage;
     private ImageView ivImage;
     private Button btRegisterDonation;
@@ -49,10 +49,10 @@ public class NewDonationViewImpl implements NewDonationView {
     }
 
     private void initialize(){
-        spType = (Spinner) rootView.findViewById(R.id.spType);
-        spCategory = (Spinner) rootView.findViewById(R.id.spCategory);
-        etTitle = (EditText) rootView.findViewById(R.id.etTitle);
-        etDescription = (EditText) rootView.findViewById(R.id.etDescription);
+        spTipo = (Spinner) rootView.findViewById(R.id.spType);
+        spCategoria = (Spinner) rootView.findViewById(R.id.spCategory);
+        etTitulo = (EditText) rootView.findViewById(R.id.etTitle);
+        etDescricao = (EditText) rootView.findViewById(R.id.etDescription);
         btSelectImage = (Button) rootView.findViewById(R.id.btSelectImage);
         ivImage = (ImageView) rootView.findViewById(R.id.ivImage);
         btRegisterDonation = (Button) rootView.findViewById(R.id.btRegisterDonation);
@@ -65,6 +65,31 @@ public class NewDonationViewImpl implements NewDonationView {
 
     @Override
     public Bundle getViewState() {
+        return null;
+    }
+
+    @Override
+    public String getTipo() {
+        return spTipo.getSelectedItem().toString();
+    }
+
+    @Override
+    public String getCategoria() {
+        return null;
+    }
+
+    @Override
+    public String getTitulo() {
+        return etTitulo.getText().toString();
+    }
+
+    @Override
+    public String getDescricao() {
+        return etDescricao.getText().toString();
+    }
+
+    @Override
+    public Bitmap getImage() {
         return null;
     }
 
