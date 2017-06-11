@@ -1,7 +1,9 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
@@ -12,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -19,8 +22,12 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import br.ufsm.projetosoftware.appdoacao.models.CategoriaMaterialConstrucaoEnum;
+import br.ufsm.projetosoftware.appdoacao.models.CategoriaRoupaEnum;
 import br.ufsm.projetosoftware.appdoacao.models.Produto;
+import br.ufsm.projetosoftware.appdoacao.models.TipoEnum;
 import br.ufsm.projetosoftware.appdoacao.network.IResultString;
+import br.ufsm.projetosoftware.appdoacao.network.NewDonationResponse;
 import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.NewDonationView;
 import br.ufsm.projetosoftware.appdoacao.view.NewDonationViewImpl;
@@ -29,24 +36,33 @@ import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
 public class NewDonationActivity extends AppCompatActivity
         implements NewDonationView.SelectImageListener,
-        NewDonationView.RegisterDonationListener{
+        NewDonationView.RegisterDonationListener,
+        NewDonationView.SelectTipoListener{
 
-    NewDonationView newDonationView;
+    private NewDonationView newDonationView;
     private IResultString resultCallback = null;
     private VolleyServiceString volleyService;
     private static String POSTDOACAO = "POSTDOACAO";
-    private static String DONATION_URL = ""; //TODO
+    private String DONATION_URL;
     private Bitmap image;
     private static int PICK_IMAGE = 1;
     private static int REQUEST_READ_STORAGE = 2;
+    private SharedPreferences loginSettings;
+    private String authToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_donation);
+        loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        authToken = loginSettings.getString("authToken", null);
         newDonationView = new NewDonationViewImpl(getWindow().getDecorView().getRootView());
         newDonationView.setSelectImageListener(this);
+        newDonationView.setRegisterDonationListener(this);
+        newDonationView.setSelectTipoListener(this);
+        newDonationView.setTipoValues(new ArrayAdapter<TipoEnum>(this, android.R.layout.simple_list_item_1, TipoEnum.values()));
         image = null;
+        DONATION_URL = getString(R.string.newDonationURL);
         initCallback();
         volleyService = new VolleyServiceString(resultCallback, this);
     }
@@ -122,12 +138,33 @@ public class NewDonationActivity extends AppCompatActivity
         doacao.setCategoria(newDonationView.getCategoria());
         doacao.setTitulo(newDonationView.getTitulo());
         doacao.setDescricao(newDonationView.getDescricao());
+        doacao.setImagem(image);
+        doacao.setAuthToken(authToken);
+        //Log.d("Token", authToken);
         String doacaoJSON = new Gson().toJson(doacao, Produto.class);
+        largeLog("json", doacaoJSON);
         volleyService.postDataVolley(POSTDOACAO, DONATION_URL, doacaoJSON);
     }
 
     private void postDoacaoSucess(String response){
-        //TODO
+        System.out.println(response);
+        NewDonationResponse donationResponse = new Gson().fromJson(response, NewDonationResponse.class);
+        switch (donationResponse.getReturnCode()){
+            case 0:
+                Toast.makeText(NewDonationActivity.this,donationResponse.getMessage(),Toast.LENGTH_LONG).show();
+                //TODO Mostrar tela da doação
+                break;
+            case 1:
+                Toast.makeText(NewDonationActivity.this,donationResponse.getMessage(),Toast.LENGTH_LONG).show();
+                break;
+            case 2:
+                Toast.makeText(NewDonationActivity.this, donationResponse.getMessage(), Toast.LENGTH_LONG).show();
+                //TODO voltar para tela de login
+                break;
+            case 3:
+                Toast.makeText(NewDonationActivity.this, donationResponse.getMessage(), Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 
     private void initCallback(){
@@ -145,5 +182,24 @@ public class NewDonationActivity extends AppCompatActivity
                 Toast.makeText(NewDonationActivity.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         };
+    }
+
+    @Override
+    public void onSelectTipo(long id) {
+        if(id == 0){
+            newDonationView.setCategoriaValues(new ArrayAdapter<CategoriaMaterialConstrucaoEnum>(this, android.R.layout.simple_list_item_1, CategoriaMaterialConstrucaoEnum.values()));
+        }
+        else if(id == 1){
+            newDonationView.setCategoriaValues(new ArrayAdapter<CategoriaRoupaEnum>(this, android.R.layout.simple_list_item_1, CategoriaRoupaEnum.values()));
+        }
+    }
+
+    public static void largeLog(String tag, String content) {
+        if (content.length() > 4000) {
+            Log.d(tag, content.substring(0, 4000));
+            largeLog(tag, content.substring(4000));
+        } else {
+            Log.d(tag, content);
+        }
     }
 }

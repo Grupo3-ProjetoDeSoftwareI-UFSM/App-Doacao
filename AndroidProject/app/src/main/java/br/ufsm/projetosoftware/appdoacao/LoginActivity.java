@@ -1,5 +1,6 @@
 package br.ufsm.projetosoftware.appdoacao;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity
         implements LoginView.LoginButtonListener, LoginView.RegisterButtonListener {
 
     private LoginView loginView;
-    private String sessionToken = null;
+    private String authToken = null;
     private String LOGIN_URL;
     private IResultString resultCallback = null;
     private VolleyServiceString volleyService;
@@ -48,8 +49,8 @@ public class LoginActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loginSettings = getSharedPreferences("LOGIN", 0);
-        if(loginSettings.contains("sessionToken")){
+        loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        if(loginSettings.contains("authToken")){
             toMainActivity();
         }
         setContentView(R.layout.activity_login);
@@ -142,12 +143,14 @@ public class LoginActivity extends AppCompatActivity
     }
 
     private void postLoginSucess(String response){
+        System.out.println(response);
         LoginResponse loginResponse = new Gson().fromJson(response, LoginResponse.class);
         switch(loginResponse.getLoginStatus()){
             //Retorna 1 caso o login tenha sido efetuado com sucesso
             case 1:
-                sessionToken = loginResponse.getSessionToken();
-                loginSettings.edit().putString("sessionToken", sessionToken);
+                authToken = loginResponse.getauthToken();
+                System.out.println(authToken);
+                loginSettings.edit().putString("authToken", authToken).commit();
                 toMainActivity();
                 break;
             //retorna 2 se o email não estiver cadastrado

@@ -1,6 +1,10 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by Felipe on 03/06/2017.
@@ -13,11 +17,14 @@ public class Produto {
     String descricao;
     String tipo;
     String categoria;
-    Bitmap imagem;
+    String imagem;
     Character status;
     Integer doadorID;
+    String authToken;
+
 
     public Produto() {
+        status = 'd';
     }
 
     public Integer getPid() {
@@ -61,11 +68,20 @@ public class Produto {
     }
 
     public Bitmap getImagem() {
-        return imagem;
+        Bitmap bitmapImage = null;
+        if(imagem != null){
+            byte[] decodedString = Base64.decode(imagem, Base64.DEFAULT);
+            bitmapImage = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        }
+        return bitmapImage;
     }
 
-    public void setImagem(Bitmap imagem) {
-        this.imagem = imagem;
+    public void setImagem(Bitmap bitmapImage) {
+        ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
+        bitmapImage.compress(Bitmap.CompressFormat.PNG, 100,
+                byteArrayBitmapStream);
+        byte[] b = byteArrayBitmapStream.toByteArray();
+        imagem = Base64.encodeToString(b, Base64.DEFAULT);
     }
 
     public Character getStatus() {
@@ -82,5 +98,13 @@ public class Produto {
 
     public void setDoadorID(Integer doadorID) {
         this.doadorID = doadorID;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

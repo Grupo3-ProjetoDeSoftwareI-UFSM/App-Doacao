@@ -10,13 +10,13 @@
         android:id="@+id/spType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="0.15" />
 
     <Spinner
         android:id="@+id/spCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="0.16" />
 
     <EditText
         android:id="@+id/etTitle"

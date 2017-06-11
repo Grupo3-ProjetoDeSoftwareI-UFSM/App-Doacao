@@ -6,14 +6,14 @@ package br.ufsm.projetosoftware.appdoacao.network;
 
 public class LoginResponse {
     int loginStatus;
-    String sessionToken;
+    String authToken;
 
     public LoginResponse() {
     }
 
-    public LoginResponse(int loginStatus, String sessionToken) {
+    public LoginResponse(int loginStatus, String authToken) {
         this.loginStatus = loginStatus;
-        this.sessionToken = sessionToken;
+        this.authToken = authToken;
     }
 
     public int getLoginStatus() {
@@ -24,11 +24,11 @@ public class LoginResponse {
         this.loginStatus = loginStatus;
     }
 
-    public String getSessionToken() {
-        return sessionToken;
+    public String getauthToken() {
+        return authToken;
     }
 
-    public void setSessionToken(String sessionToken) {
-        this.sessionToken = sessionToken;
+    public void setauthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

@@ -3,6 +3,8 @@ package br.ufsm.projetosoftware.appdoacao.view;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ public class NewDonationViewImpl implements NewDonationView {
     private View rootView;
     private SelectImageListener selectImageListener;
     private RegisterDonationListener registerDonationListener;
+    private SelectTipoListener selectTipoListener;
     private Spinner spTipo;
     private Spinner spCategoria;
     private EditText etTitulo;
@@ -46,6 +49,19 @@ public class NewDonationViewImpl implements NewDonationView {
                 }
             }
         });
+        spTipo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(selectTipoListener != null){
+                    selectTipoListener.onSelectTipo(id);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                selectTipoListener.onSelectTipo(0);
+            }
+        });
     }
 
     private void initialize(){
@@ -57,6 +73,7 @@ public class NewDonationViewImpl implements NewDonationView {
         ivImage = (ImageView) rootView.findViewById(R.id.ivImage);
         btRegisterDonation = (Button) rootView.findViewById(R.id.btRegisterDonation);
     }
+
 
     @Override
     public View getRootView() {
@@ -75,7 +92,7 @@ public class NewDonationViewImpl implements NewDonationView {
 
     @Override
     public String getCategoria() {
-        return null;
+        return spCategoria.getSelectedItem().toString();
     }
 
     @Override
@@ -107,5 +124,20 @@ public class NewDonationViewImpl implements NewDonationView {
     @Override
     public void setRegisterDonationListener(RegisterDonationListener listener) {
         registerDonationListener = listener;
+    }
+
+    @Override
+    public void setSelectTipoListener(SelectTipoListener listener) {
+        selectTipoListener = listener;
+    }
+
+    @Override
+    public void setTipoValues(ArrayAdapter adapter) {
+        spTipo.setAdapter(adapter);
+    }
+
+    @Override
+    public void setCategoriaValues(ArrayAdapter adapter) {
+        spCategoria.setAdapter(adapter);
     }
 }
