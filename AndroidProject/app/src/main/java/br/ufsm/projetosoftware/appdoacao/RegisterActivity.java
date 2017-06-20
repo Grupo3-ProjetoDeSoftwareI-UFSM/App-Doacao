@@ -120,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         Log.d("Response", response);
         RegisterResponse registerResponse = new Gson().fromJson(response, RegisterResponse.class);
         Toast.makeText(RegisterActivity.this, registerResponse.getMessage(), Toast.LENGTH_LONG).show();
-        if(registerResponse.getSucess() == 1) {
+        if(registerResponse.getSuccess() == 1) {
             Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(i);
         }

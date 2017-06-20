@@ -6,23 +6,23 @@ package br.ufsm.projetosoftware.appdoacao.network;
 
 public class RegisterResponse {
 
-    Integer sucess;
+    Integer success;
     String message;
 
     public RegisterResponse() {
     }
 
-    public RegisterResponse(Integer sucess, String message) {
-        this.sucess = sucess;
+    public RegisterResponse(Integer success, String message) {
+        this.success = success;
         this.message = message;
     }
 
-    public Integer getSucess() {
-        return sucess;
+    public Integer getSuccess() {
+        return success;
     }
 
-    public void setSucess(Integer sucess) {
-        this.sucess = sucess;
+    public void setSuccess(Integer success) {
+        this.success = success;
     }
 
     public String getMessage() {

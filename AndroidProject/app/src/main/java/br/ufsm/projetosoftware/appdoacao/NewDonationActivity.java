@@ -1,6 +1,5 @@
 package br.ufsm.projetosoftware.appdoacao;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,11 +8,9 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -49,6 +46,7 @@ public class NewDonationActivity extends AppCompatActivity
     private static int REQUEST_READ_STORAGE = 2;
     private SharedPreferences loginSettings;
     private String authToken;
+    private Produto doacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +131,7 @@ public class NewDonationActivity extends AppCompatActivity
     @Override
     public void onRegisterDonationClick() {
         //TODO
-        Produto doacao = new Produto();
+        doacao = new Produto();
         doacao.setTipo(newDonationView.getTipo());
         doacao.setCategoria(newDonationView.getCategoria());
         doacao.setTitulo(newDonationView.getTitulo());
@@ -146,13 +144,23 @@ public class NewDonationActivity extends AppCompatActivity
         volleyService.postDataVolley(POSTDOACAO, DONATION_URL, doacaoJSON);
     }
 
+    private void onRegisterDonationComplete(){
+        Intent i = new Intent(NewDonationActivity.this, DonationActivity.class);
+        i.putExtra("Titulo", doacao.getTitulo());
+        i.putExtra("Categoria", doacao.getTipoCategoria());
+        i.putExtra("Descricao", doacao.getDescricao());
+        i.putExtra("ImageId", doacao.getImageId());
+        startActivity(i);
+    }
+
     private void postDoacaoSucess(String response){
         System.out.println(response);
         NewDonationResponse donationResponse = new Gson().fromJson(response, NewDonationResponse.class);
+        doacao.setImageId(donationResponse.getImageId());
         switch (donationResponse.getReturnCode()){
             case 0:
                 Toast.makeText(NewDonationActivity.this,donationResponse.getMessage(),Toast.LENGTH_LONG).show();
-                //TODO Mostrar tela da doação
+                onRegisterDonationComplete();
                 break;
             case 1:
                 Toast.makeText(NewDonationActivity.this,donationResponse.getMessage(),Toast.LENGTH_LONG).show();

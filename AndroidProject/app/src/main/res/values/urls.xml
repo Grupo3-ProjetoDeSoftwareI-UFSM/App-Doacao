@@ -3,4 +3,6 @@
     <string name="loginURL">http://www.appdoacao.esy.es/userLogin.php</string>
     <string name="registerURL">http://www.appdoacao.esy.es/userRegister.php</string>
     <string name="newDonationURL">http://www.appdoacao.esy.es/donationRegister.php</string>
+    <string name="solicitarDoacaoURL">http://www.appdoacao.esy.es/solicitarDoacao.php</string>
+    <string name="getImageURL">http://www.appdoacao.esy.es/getImagem.php</string>
 </resources>

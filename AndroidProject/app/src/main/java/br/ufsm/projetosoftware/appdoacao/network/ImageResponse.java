@@ -1,29 +1,29 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 06/06/2017.
+ * Created by Felipe on 17/06/2017.
  */
 
-public class NewDonationResponse {
-
-    String imageId;
+public class ImageResponse {
+    String image;
     int returnCode;
     String message;
 
-    public NewDonationResponse() {
+    public ImageResponse() {
     }
 
-    public NewDonationResponse(int returnCode, String message) {
+    public ImageResponse(String image, int returnCode, String message) {
+        this.image = image;
         this.returnCode = returnCode;
         this.message = message;
     }
 
-    public String getImageId() {
-        return imageId;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageId(String imageId) {
-        this.imageId = imageId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getReturnCode() {

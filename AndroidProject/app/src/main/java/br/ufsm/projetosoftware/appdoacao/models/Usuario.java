@@ -74,6 +74,12 @@ public class Usuario {
 
     public void setCpfcnpj(String cpfcnpj) {
         this.cpfcnpj = cpfcnpj;
+        if(cpfcnpj.length() == 11){
+            tipo = 'f';
+        }
+        if(getCpfcnpj().length() == 14){
+            tipo = 'j';
+        }
     }
 
     public Character getTipo() {

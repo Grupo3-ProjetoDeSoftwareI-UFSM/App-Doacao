@@ -145,6 +145,7 @@ public class LoginActivity extends AppCompatActivity
     private void postLoginSucess(String response){
         System.out.println(response);
         LoginResponse loginResponse = new Gson().fromJson(response, LoginResponse.class);
+        loginView.showProgress(false);
         switch(loginResponse.getLoginStatus()){
             //Retorna 1 caso o login tenha sido efetuado com sucesso
             case 1:
@@ -166,6 +167,9 @@ public class LoginActivity extends AppCompatActivity
                 break;
             case 5:
                 loginView.setErrorEmail("Campo não preenchido.");
+                break;
+            case 6:
+                loginView.setErrorEmail("Conta não ativada, verifique seu email.");
                 break;
             default:
                 Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();

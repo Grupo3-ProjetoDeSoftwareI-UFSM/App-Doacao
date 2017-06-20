@@ -18,6 +18,7 @@ public class Produto {
     String tipo;
     String categoria;
     String imagem;
+    String imageId;
     Character status;
     Integer doadorID;
     String authToken;
@@ -84,6 +85,18 @@ public class Produto {
         imagem = Base64.encodeToString(b, Base64.DEFAULT);
     }
 
+    public void setImagem(String bitmapEncodedImage){
+        imagem = bitmapEncodedImage;
+    }
+
+    public String getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
+    }
+
     public Character getStatus() {
         return status;
     }
@@ -106,5 +119,9 @@ public class Produto {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public String getTipoCategoria(){
+        return tipo + " > " + categoria;
     }
 }
