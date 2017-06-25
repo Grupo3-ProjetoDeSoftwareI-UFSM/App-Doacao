@@ -88,6 +88,11 @@ public class DonationViewImpl implements DonationView{
     }
 
     @Override
+    public void disableSolicitarButton() {
+        btSolicitar.setEnabled(false);
+    }
+
+    @Override
     public View getRootView() {
         return rootView;
     }

@@ -1,10 +1,11 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 10/06/2017.
+ * Created by Felipe on 24/06/2017.
  */
 
-public enum CategoriaMaterialConstrucaoEnum {
+public enum CategoriaMaterialConstrucaoBuscaEnum {
+    CAT("Todos"),
     CAT1("Portas e janelas"),
     CAT2("Pisos e revestimentos"),
     CAT3("Pintura"),
@@ -16,7 +17,7 @@ public enum CategoriaMaterialConstrucaoEnum {
 
     private String categoria;
 
-    CategoriaMaterialConstrucaoEnum(String categoria){
+    CategoriaMaterialConstrucaoBuscaEnum(String categoria){
         this.categoria = categoria;
     }
 

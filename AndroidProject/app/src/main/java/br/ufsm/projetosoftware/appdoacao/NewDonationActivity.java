@@ -47,6 +47,7 @@ public class NewDonationActivity extends AppCompatActivity
     private SharedPreferences loginSettings;
     private String authToken;
     private Produto doacao;
+    private String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class NewDonationActivity extends AppCompatActivity
         newDonationView.setSelectImageListener(this);
         newDonationView.setRegisterDonationListener(this);
         newDonationView.setSelectTipoListener(this);
+
         newDonationView.setTipoValues(new ArrayAdapter<TipoEnum>(this, android.R.layout.simple_list_item_1, TipoEnum.values()));
         image = null;
         DONATION_URL = getString(R.string.newDonationURL);
@@ -150,6 +152,7 @@ public class NewDonationActivity extends AppCompatActivity
         i.putExtra("Categoria", doacao.getTipoCategoria());
         i.putExtra("Descricao", doacao.getDescricao());
         i.putExtra("ImageId", doacao.getImageId());
+        i.putExtra("uid", uid);
         startActivity(i);
     }
 
@@ -157,6 +160,7 @@ public class NewDonationActivity extends AppCompatActivity
         System.out.println(response);
         NewDonationResponse donationResponse = new Gson().fromJson(response, NewDonationResponse.class);
         doacao.setImageId(donationResponse.getImageId());
+        uid = donationResponse.getUid();
         switch (donationResponse.getReturnCode()){
             case 0:
                 Toast.makeText(NewDonationActivity.this,donationResponse.getMessage(),Toast.LENGTH_LONG).show();

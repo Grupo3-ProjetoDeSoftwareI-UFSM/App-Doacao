@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import br.ufsm.projetosoftware.appdoacao.models.Produto;
 import br.ufsm.projetosoftware.appdoacao.network.IResultString;
 import br.ufsm.projetosoftware.appdoacao.network.ImageResponse;
+import br.ufsm.projetosoftware.appdoacao.network.RequestPost;
+import br.ufsm.projetosoftware.appdoacao.network.RequestResult;
 import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.DonationView;
 import br.ufsm.projetosoftware.appdoacao.view.DonationViewImpl;
@@ -41,6 +43,9 @@ public class DonationActivity extends AppCompatActivity
     private Bundle extras;
     Produto doacao;
     private String imageId;
+    private String doadorId;
+    private int uid;
+    private int doacaoId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class DonationActivity extends AppCompatActivity
         donationView.setSolicitarListener(this);
         loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         authToken = loginSettings.getString("authToken", null);
+        uid = loginSettings.getInt("uid", 0);
         SOLICITACAO_URL = getString(R.string.solicitarDoacaoURL);
         IMAGEM_URL = getString(R.string.getImageURL);
         initCallback();
@@ -65,6 +71,8 @@ public class DonationActivity extends AppCompatActivity
             donationView.setCategoria(extras.getString("Categoria", "Categoria"));
             donationView.setDescricao(extras.getString("Descricao", "Descricao"));
             imageId = extras.getString("ImageId");
+            doadorId = extras.getString("uid");
+            doacaoId = extras.getInt("doacaoId");
         }
 
     }
@@ -79,11 +87,26 @@ public class DonationActivity extends AppCompatActivity
 
     @Override
     public void onSolicitarClick() {
-        //TODO
+        Log.d("doacaoId", String.valueOf(doacaoId));
+        Log.d("uid", String.valueOf(uid));
+        RequestPost requestPost = new RequestPost(doacaoId, uid);
+        String requestPostJson = new Gson().toJson(requestPost, RequestPost.class);
+        Log.d("requestJson", requestPostJson);
+        volleyService.postDataVolley(POSTSOLICITACAO, SOLICITACAO_URL, requestPostJson);
     }
 
     private void postSolicitacaoSucess(String response){
-        //TODO
+        Log.d("solicitacaoResponse", response);
+        RequestResult requestResult = new Gson().fromJson(response, RequestResult.class);
+        switch (requestResult.getSuccess()){
+            case 0:
+                Toast.makeText(DonationActivity.this, "Solicitação efetuada com sucesso.",Toast.LENGTH_LONG).show();
+                donationView.disableSolicitarButton();
+                break;
+            case 1:
+                Toast.makeText(DonationActivity.this, "Erro na solicitação.",Toast.LENGTH_LONG).show();
+                break;
+        }
     }
 
     private void getImageSucess(String response){

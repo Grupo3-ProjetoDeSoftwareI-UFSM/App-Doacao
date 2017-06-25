@@ -9,5 +9,11 @@ public interface MainView extends ViewMvc {
         void onNewDonationClick();
     }
 
+    interface SearchDonationButtonListener{
+        void onSearchDonationClick();
+    }
+
     public void setNewDonationListener(NewDonationButtonListener listener);
+
+    void setSearchDonationListener(SearchDonationButtonListener listener);
 }

@@ -6,6 +6,7 @@ package br.ufsm.projetosoftware.appdoacao.network;
 
 public class NewDonationResponse {
 
+    String uid;
     String imageId;
     int returnCode;
     String message;
@@ -16,6 +17,14 @@ public class NewDonationResponse {
     public NewDonationResponse(int returnCode, String message) {
         this.returnCode = returnCode;
         this.message = message;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getImageId() {

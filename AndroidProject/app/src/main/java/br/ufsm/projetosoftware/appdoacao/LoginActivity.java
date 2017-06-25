@@ -152,6 +152,7 @@ public class LoginActivity extends AppCompatActivity
                 authToken = loginResponse.getauthToken();
                 System.out.println(authToken);
                 loginSettings.edit().putString("authToken", authToken).commit();
+                loginSettings.edit().putInt("uid", loginResponse.getUid()).commit();
                 toMainActivity();
                 break;
             //retorna 2 se o email não estiver cadastrado

@@ -27,4 +27,6 @@ public interface DonationView extends ViewMvc{
     void setImageListener(ImageButtonListener listener);
 
     void setSolicitarListener(SolicitarButtonListener listener);
+
+    void  disableSolicitarButton();
 }

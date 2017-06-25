@@ -7,7 +7,8 @@ import android.os.Bundle;
 import br.ufsm.projetosoftware.appdoacao.view.MainView;
 import br.ufsm.projetosoftware.appdoacao.view.MainViewImpl;
 
-public class MainActivity extends AppCompatActivity implements MainView.NewDonationButtonListener{
+public class MainActivity extends AppCompatActivity implements MainView.NewDonationButtonListener,
+        MainView.SearchDonationButtonListener{
 
     private MainView mainView;
 
@@ -17,11 +18,18 @@ public class MainActivity extends AppCompatActivity implements MainView.NewDonat
         setContentView(R.layout.activity_main);
         mainView = new MainViewImpl(getWindow().getDecorView().getRootView());
         mainView.setNewDonationListener(this);
+        mainView.setSearchDonationListener(this);
     }
 
     @Override
     public void onNewDonationClick() {
         Intent toNewDonation = new Intent(MainActivity.this, NewDonationActivity.class);
         startActivity(toNewDonation);
+    }
+
+    @Override
+    public void onSearchDonationClick() {
+        Intent toSearchDonation = new Intent(MainActivity.this, SearchDonationActivity.class);
+        startActivity(toSearchDonation);
     }
 }

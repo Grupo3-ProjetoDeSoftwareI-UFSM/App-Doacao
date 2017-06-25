@@ -19,8 +19,9 @@ public class Produto {
     String categoria;
     String imagem;
     String imageId;
+    String datahora;
     Character status;
-    Integer doadorID;
+    Integer doador;
     String authToken;
 
 
@@ -97,6 +98,14 @@ public class Produto {
         this.imageId = imageId;
     }
 
+    public String getDatahora() {
+        return datahora;
+    }
+
+    public void setDatahora(String datahora) {
+        this.datahora = datahora;
+    }
+
     public Character getStatus() {
         return status;
     }
@@ -105,12 +114,12 @@ public class Produto {
         this.status = status;
     }
 
-    public Integer getDoadorID() {
-        return doadorID;
+    public Integer getDoador() {
+        return doador;
     }
 
-    public void setDoadorID(Integer doadorID) {
-        this.doadorID = doadorID;
+    public void setDoador(Integer doador) {
+        this.doador = doador;
     }
 
     public String getAuthToken() {

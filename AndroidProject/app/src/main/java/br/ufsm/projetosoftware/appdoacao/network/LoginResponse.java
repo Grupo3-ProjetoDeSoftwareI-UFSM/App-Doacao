@@ -7,6 +7,7 @@ package br.ufsm.projetosoftware.appdoacao.network;
 public class LoginResponse {
     int loginStatus;
     String authToken;
+    int uid;
 
     public LoginResponse() {
     }
@@ -30,5 +31,13 @@ public class LoginResponse {
 
     public void setauthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 }
