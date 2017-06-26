@@ -31,6 +31,9 @@ import br.ufsm.projetosoftware.appdoacao.view.NewDonationViewImpl;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 
+/**
+ * Activity de cadastrar produto
+ */
 public class NewDonationActivity extends AppCompatActivity
         implements NewDonationView.SelectImageListener,
         NewDonationView.RegisterDonationListener,
@@ -49,6 +52,10 @@ public class NewDonationActivity extends AppCompatActivity
     private Produto doacao;
     private String uid;
 
+    /**
+     * Inicializa a Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +66,20 @@ public class NewDonationActivity extends AppCompatActivity
         newDonationView.setSelectImageListener(this);
         newDonationView.setRegisterDonationListener(this);
         newDonationView.setSelectTipoListener(this);
-
+/**
+ * Cria um adaptador do ENUM com os tipos para o spiner da View
+ */
         newDonationView.setTipoValues(new ArrayAdapter<TipoEnum>(this, android.R.layout.simple_list_item_1, TipoEnum.values()));
         image = null;
         DONATION_URL = getString(R.string.newDonationURL);
-        initCallback();
-        volleyService = new VolleyServiceString(resultCallback, this);
+        initCallback();//Recebe
+        volleyService = new VolleyServiceString(resultCallback, this);//Envia
     }
 
+    /**
+     * Pede autorização para acessar os arquivos do celular;
+     * @return
+     */
     private boolean mayRequestStorage() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
@@ -83,6 +96,12 @@ public class NewDonationActivity extends AppCompatActivity
         return false;
     }
 
+    /**
+     * Espera a resposta da solicitação de permição do usuário
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -93,6 +112,9 @@ public class NewDonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Ao clicar em selecionar imagem;
+     */
     @Override
     public void onSelectImageClick() {
         if(!mayRequestStorage()){
@@ -102,6 +124,9 @@ public class NewDonationActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Método parta escolher a img;
+     */
     private void pickImage(){
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
@@ -111,10 +136,18 @@ public class NewDonationActivity extends AppCompatActivity
 
         Intent chooserIntent = Intent.createChooser(getIntent, "Selecione a imagem");
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
-
+/**
+ * Inicia a activity para escolher a imagem, espera o resultado;
+ */
         startActivityForResult(chooserIntent, PICK_IMAGE);
     }
 
+    /**
+     * Ao selecionar imagem, abre este metodo
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -130,6 +163,9 @@ public class NewDonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Ao clicar em registrar produto
+     */
     @Override
     public void onRegisterDonationClick() {
         //TODO
@@ -146,6 +182,9 @@ public class NewDonationActivity extends AppCompatActivity
         volleyService.postDataVolley(POSTDOACAO, DONATION_URL, doacaoJSON);
     }
 
+    /**
+     * Abre a activity do produto e mostra a doação cadastrada
+     */
     private void onRegisterDonationComplete(){
         Intent i = new Intent(NewDonationActivity.this, DonationActivity.class);
         i.putExtra("Titulo", doacao.getTitulo());
@@ -156,6 +195,10 @@ public class NewDonationActivity extends AppCompatActivity
         startActivity(i);
     }
 
+    /**
+     * Se foi recebido uma resposta do servidor, avisa o usuário;
+     * @param response
+     */
     private void postDoacaoSucess(String response){
         System.out.println(response);
         NewDonationResponse donationResponse = new Gson().fromJson(response, NewDonationResponse.class);
@@ -178,16 +221,27 @@ public class NewDonationActivity extends AppCompatActivity
                 break;
         }
     }
-
+    /**
+     * Receber uma resposta do servidor
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
+            /**
+             * Sucesso na conexão com o servidor
+             * @param requestType
+             * @param response
+             */
             @Override
             public void notifySuccess(String requestType, String response) {
                 if(requestType.equals(POSTDOACAO)){
                     postDoacaoSucess(response);
                 }
             }
-
+            /**
+             * Erro na conexão com o servidor(Ex: Sem internet)
+             * @param requestType
+             * @param error
+             */
             @Override
             public void notifyError(String requestType, VolleyError error) {
                 Log.d("Erro na conexao", error.toString());
@@ -196,12 +250,16 @@ public class NewDonationActivity extends AppCompatActivity
         };
     }
 
+    /**
+     * Quando o usuário seleciona o tipo, carrega as categorias
+     * @param id
+     */
     @Override
     public void onSelectTipo(long id) {
-        if(id == 0){
+        if(id == 0){//Materiais construção
             newDonationView.setCategoriaValues(new ArrayAdapter<CategoriaMaterialConstrucaoEnum>(this, android.R.layout.simple_list_item_1, CategoriaMaterialConstrucaoEnum.values()));
         }
-        else if(id == 1){
+        else if(id == 1){//Roupas
             newDonationView.setCategoriaValues(new ArrayAdapter<CategoriaRoupaEnum>(this, android.R.layout.simple_list_item_1, CategoriaRoupaEnum.values()));
         }
     }

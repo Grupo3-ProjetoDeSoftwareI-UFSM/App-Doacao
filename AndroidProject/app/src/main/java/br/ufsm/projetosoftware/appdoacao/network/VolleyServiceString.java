@@ -26,7 +26,12 @@ public class VolleyServiceString {
         mContext = context;
     }
 
-
+    /**
+     * Recebe um objeto com os dados da solicitação e envia para o servidor
+     * @param requestType
+     * @param url
+     * @param sendObj
+     */
     public void postDataVolley(final String requestType, String url, final String sendObj){
         try {
             RequestQueue queue = Volley.newRequestQueue(mContext);
@@ -59,6 +64,11 @@ public class VolleyServiceString {
         }
     }
 
+    /**
+     * Acessa a URL e busca valor
+     * @param requestType
+     * @param url
+     */
     public void getDataVolley(final String requestType, String url){
         try {
             RequestQueue queue = Volley.newRequestQueue(mContext);

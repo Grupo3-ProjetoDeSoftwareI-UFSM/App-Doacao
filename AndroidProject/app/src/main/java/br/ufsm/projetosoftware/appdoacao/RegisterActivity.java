@@ -22,7 +22,7 @@ import br.ufsm.projetosoftware.appdoacao.view.RegisterViewImpl;
 
 /**
  * Activity da tela de registro de usuário.
- * Created by Felipe on 15/05/2017.
+ * Created on 15/05/2017.
  */
 public class RegisterActivity extends AppCompatActivity implements RegisterView.RegisterButtonListener, RegisterView.CepListener{
 
@@ -36,6 +36,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
     private final String POSTUSUARIO = "POSTUSUARIO";
     private final String GETCEP = "GETCEP";
 
+    /**
+     * Inicializa a Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +120,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         volleyService.postDataVolley(POSTUSUARIO, REGISTER_URL, usuarioJSON);
     }
 
+    /**
+     * Recebe a resposta do servidor, referente ao registro de usuário
+     * @param response
+     */
     private void postRegisterSucess(String response){
         Log.d("Response", response);
         RegisterResponse registerResponse = new Gson().fromJson(response, RegisterResponse.class);
@@ -125,7 +133,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
             startActivity(i);
         }
     }
-
+    /**
+     * Verificação do CEP
+     */
     private void getCepSucess(String response){
         Log.d("Response", response);
         CEPResponse cepResponse = new Gson().fromJson(response, CEPResponse.class);
@@ -144,6 +154,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
 
     private void initCallback() {
         resultCallback = new IResultString() {
+            /**
+             * Sucesso na conexão com o servidor
+             * @param requestType
+             * @param response
+             */
             @Override
             public void notifySuccess(String requestType, String response) {
                 if(requestType.equals(GETCEP)){
@@ -154,6 +169,11 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
                 }
 
             }
+            /**
+             * Erro na conexão com o servidor(Ex: Sem internet)
+             * @param requestType
+             * @param error
+             */
             @Override
             public void notifyError(String requestType, VolleyError error) {
                 Log.d("Erro na conexao", error.toString());

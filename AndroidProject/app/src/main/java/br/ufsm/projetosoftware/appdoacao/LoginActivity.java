@@ -33,7 +33,7 @@ import br.ufsm.projetosoftware.appdoacao.view.LoginViewImpl;
 
 /**
  * Activity da tela de login do usuário.
- * Created by Felipe on 13/05/2017.
+ * Created on 13/05/2017.
  */
 public class LoginActivity extends AppCompatActivity
         implements LoginView.LoginButtonListener, LoginView.RegisterButtonListener {
@@ -46,19 +46,38 @@ public class LoginActivity extends AppCompatActivity
     private final String POSTLOGIN = "POSTLOGIN";
     private SharedPreferences loginSettings;
 
+    /**
+     * Inicializa a Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**
+         * Verifa se existe uma chave de autenticação
+         */
         loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        /**
+         * Se existe, vai para o Método toMainActivity()
+         */
         if(loginSettings.contains("authToken")){
             toMainActivity();
         }
+        /**
+         * Inicializa o controle da view
+         */
         setContentView(R.layout.activity_login);
         loginView = new LoginViewImpl(getWindow().getDecorView().getRootView());
         loginView.setLoginListener(this);
         loginView.setRegisterListener(this);
+        /**
+         * Configura a conexão com o servidor
+         */
         LOGIN_URL = getString(R.string.loginURL);
         initCallback();
+        /**
+         * Inicializa a classe que faz conexão com o servidor
+         */
         volleyService = new VolleyServiceString(resultCallback, this);
     }
 
@@ -123,25 +142,44 @@ public class LoginActivity extends AppCompatActivity
      * @param password
      */
     private void userLogin(String email, String password){
+        /**
+         * Cria uma classe com os parametros a serem enviados pro servidor
+         */
         LoginPost loginPost = new LoginPost(email, password);
+        /**
+         * Converte o objeto com os parametros para uma string JSon, pela classe da Google: Gson
+         */
         String loginJSON = new Gson().toJson(loginPost);
+
+        /**
+         * Passa a string Json(valores a ser enviados)
+         */
         volleyService.postDataVolley(POSTLOGIN, LOGIN_URL, loginJSON);
     }
 
     /**
      * Inicia activity de registro do usuário.
+     * Troca de Activity(Login para Register)
      */
     private void toSignUp(){
         Intent i;
+
         i = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Troca de Activity(Login para Main)
+     */
     private void toMainActivity(){
         Intent i = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(i);
     }
 
+    /**
+     * Recebe a resposta do servidor
+     * @param response
+     */
     private void postLoginSucess(String response){
         System.out.println(response);
         LoginResponse loginResponse = new Gson().fromJson(response, LoginResponse.class);
@@ -163,22 +201,33 @@ public class LoginActivity extends AppCompatActivity
             case 3:
                 loginView.setErrorPassword("Senha incorreta");
                 break;
+            //Erro de consulta
             case 4:
                 Toast.makeText(LoginActivity.this, "Erro ao efetuar login, tente novamente", Toast.LENGTH_LONG).show();
                 break;
             case 5:
                 loginView.setErrorEmail("Campo não preenchido.");
                 break;
+            //Email não foi ativado
             case 6:
                 loginView.setErrorEmail("Conta não ativada, verifique seu email.");
                 break;
+
             default:
                 Toast.makeText(LoginActivity.this, response, Toast.LENGTH_LONG).show();
         }
     }
 
+    /**
+     * Receber uma resposta do servidor
+     */
     private void initCallback() {
         resultCallback = new IResultString() {
+            /**
+             * Sucesso na conexão com o servidor
+             * @param requestType
+             * @param response
+             */
             @Override
             public void notifySuccess(String requestType, String response) {
                 if(requestType.equals(POSTLOGIN)){
@@ -186,6 +235,11 @@ public class LoginActivity extends AppCompatActivity
                 }
             }
 
+            /**
+             * Erro na conexão com o servidor(Ex: Sem internet)
+             * @param requestType
+             * @param error
+             */
             @Override
             public void notifyError(String requestType, VolleyError error) {
                 Log.d("Erro na conexao", error.toString());

@@ -33,6 +33,10 @@ public class LoginViewImpl implements LoginView {
     private TextView accountRegisterLink;
     private View focusView;
 
+    /**
+     * Construtor da classe
+     * @param view
+     */
     public LoginViewImpl(View view) {
         //rootView = inflater.inflate(R.layout.activity_login, container, false);
         rootView = view;
@@ -57,6 +61,9 @@ public class LoginViewImpl implements LoginView {
         });
     }
 
+    /**
+     * Método para inicializar os elementos da tela
+     */
     private void initialize(){
         emailSignInButton = (Button) rootView.findViewById(R.id.email_sign_in_button);
         accountRegisterLink = (TextView) rootView.findViewById(R.id.link_signup);
@@ -68,46 +75,76 @@ public class LoginViewImpl implements LoginView {
     }
 
 
-
+    /**
+     * Retorna a view
+     * @return
+     */
     @Override
     public View getRootView() {
         return rootView;
     }
 
+    /**
+     * Retorna o estado da View
+     * @return
+     */
     @Override
     public Bundle getViewState() {
         return null;
     }
 
+    /**
+     * Retorna o Email do usuário
+     * @return email
+     */
     @Override
     public String getEmail() {
         String email = emailView.getText().toString();
         return email;
     }
 
+    /**
+     * Retorna a senha
+     * @return senha
+     */
     @Override
     public String getPassword() {
         String password = passwordView.getText().toString();
         return password;
     }
 
+    /**
+     * Informa que houve um erro no email digitado
+     * @param error
+     */
     @Override
     public void setErrorEmail(String error) {
         emailView.setError(error);
         focusView  = emailView;
     }
 
+    /**
+     * Informa que houve um erro na senha digitada
+     * @param error
+     */
     @Override
     public void setErrorPassword(String error) {
         passwordView.setError(error);
         focusView = passwordView;
     }
-    
+
+    /**
+     * Redireciona o foco da tela, quando ocorrer erro de digitação
+     */
     @Override
     public void setErrorFocus(){
         focusView.requestFocus();
     }
 
+    /**
+     * Efeito de carregar: Verifica qual a versão do Android
+     * @param show
+     */
     @Override
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
@@ -142,11 +179,19 @@ public class LoginViewImpl implements LoginView {
         }
     }
 
+    /**
+     * Setar a classe LoginActivity como listener do botão de Loguin
+     * @param listener
+     */
     @Override
     public void setLoginListener(LoginButtonListener listener) {
         loginListener = listener;
     }
 
+    /**
+     * Setar a classe LoginActivity com Listener do botão de registro
+     * @param listener
+     */
     @Override
     public void setRegisterListener(RegisterButtonListener listener) {
         registerListener = listener;
