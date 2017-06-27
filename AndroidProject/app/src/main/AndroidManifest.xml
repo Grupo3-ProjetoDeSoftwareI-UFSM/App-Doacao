@@ -30,7 +30,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".NewDonationActivity" />
         <activity android:name=".DonationActivity" />
-        <activity android:name=".SearchDonationActivity"></activity>
+        <activity android:name=".SearchDonationActivity" />
+        <activity android:name=".ListDonationActivity"></activity>
     </application>
 
 </manifest>
