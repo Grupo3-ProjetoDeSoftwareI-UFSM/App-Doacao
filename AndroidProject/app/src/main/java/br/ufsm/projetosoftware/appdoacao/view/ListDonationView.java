@@ -1,6 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 
 /**
  * Created by Felipe on 27/06/2017.
@@ -23,4 +24,6 @@ public interface ListDonationView {
     void setSelectSpinnerListener(SelectSpinnerListener listener);
 
     void setSelectListListener(SelectListListener listener);
+
+    void setListAdapter(ListAdapter adapter);
 }

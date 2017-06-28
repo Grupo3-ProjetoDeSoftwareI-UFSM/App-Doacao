@@ -20,13 +20,13 @@ public class Produto {
     String imagem;
     String imageId;
     String datahora;
-    Character status;
+    String status;
     Integer doador;
     String authToken;
 
 
     public Produto() {
-        status = 'd';
+        status = StatusEnum.STATUS1.toString();
     }
 
     public Integer getPid() {
@@ -106,11 +106,11 @@ public class Produto {
         this.datahora = datahora;
     }
 
-    public Character getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Character status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 

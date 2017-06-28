@@ -15,8 +15,10 @@ public class MainViewImpl implements MainView {
     private View rootView;
     private Button btNewDonation;
     private Button btSearchDonation;
+    private Button btListDonation;
     private NewDonationButtonListener newDonationButtonListener;
     private SearchDonationButtonListener searchDonationButtonListener;
+    private ListDonationButtonListener listDonationButtonListener;
 
     public MainViewImpl(View view){
         rootView = view;
@@ -37,11 +39,20 @@ public class MainViewImpl implements MainView {
                 }
             }
         });
+        btListDonation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listDonationButtonListener != null){
+                    listDonationButtonListener.onListDonationClick();
+                }
+            }
+        });
     }
 
     private void initialize(){
         btNewDonation = (Button) rootView.findViewById(R.id.btNewDonation);
         btSearchDonation = (Button) rootView.findViewById(R.id.btSearchDonation);
+        btListDonation = (Button) rootView.findViewById(R.id.btListDonation);
     }
 
     @Override
@@ -62,5 +73,10 @@ public class MainViewImpl implements MainView {
     @Override
     public void setSearchDonationListener(SearchDonationButtonListener listener) {
         searchDonationButtonListener = listener;
+    }
+
+    @Override
+    public void setListDonationListener(ListDonationButtonListener listener) {
+        listDonationButtonListener = listener;
     }
 }

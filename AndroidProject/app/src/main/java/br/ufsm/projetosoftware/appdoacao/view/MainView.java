@@ -13,7 +13,14 @@ public interface MainView extends ViewMvc {
         void onSearchDonationClick();
     }
 
-    public void setNewDonationListener(NewDonationButtonListener listener);
+    interface ListDonationButtonListener{
+        void onListDonationClick();
+    }
+
+    void setNewDonationListener(NewDonationButtonListener listener);
 
     void setSearchDonationListener(SearchDonationButtonListener listener);
+
+    void setListDonationListener(ListDonationButtonListener listener);
+
 }

@@ -3,6 +3,7 @@ package br.ufsm.projetosoftware.appdoacao.view;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -62,5 +63,10 @@ public class ListDonationViewImpl implements ListDonationView{
     @Override
     public void setSelectListListener(SelectListListener listener) {
         selectListListener = listener;
+    }
+
+    @Override
+    public void setListAdapter(ListAdapter adapter) {
+        lvDoacoes.setAdapter(adapter);
     }
 }

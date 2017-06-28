@@ -174,8 +174,10 @@ public class NewDonationActivity extends AppCompatActivity
         doacao.setCategoria(newDonationView.getCategoria());
         doacao.setTitulo(newDonationView.getTitulo());
         doacao.setDescricao(newDonationView.getDescricao());
-        doacao.setImagem(image);
         doacao.setAuthToken(authToken);
+        if(image!=null){
+            doacao.setImagem(image);
+        }
         //Log.d("Token", authToken);
         String doacaoJSON = new Gson().toJson(doacao, Produto.class);
         largeLog("json", doacaoJSON);
