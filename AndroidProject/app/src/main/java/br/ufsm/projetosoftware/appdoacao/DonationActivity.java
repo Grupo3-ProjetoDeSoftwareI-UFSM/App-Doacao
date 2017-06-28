@@ -23,7 +23,8 @@ import br.ufsm.projetosoftware.appdoacao.view.DonationView;
 import br.ufsm.projetosoftware.appdoacao.view.DonationViewImpl;
 
 /**
- * Created by Felipe on 17/06/2017.
+ * View de visualização do produto
+ * Created on 17/06/2017.
  */
 
 public class DonationActivity extends AppCompatActivity
@@ -47,6 +48,10 @@ public class DonationActivity extends AppCompatActivity
     private int uid;
     private int doacaoId;
 
+    /**
+     * Inicializa a Activity
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,9 @@ public class DonationActivity extends AppCompatActivity
         initialize();
     }
 
+    /**
+     * Recebe os dados das activitys e carrega na view;
+     */
     private void initialize() {
         if(extras != null){
             donationView.setTitulo(extras.getString("Titulo", "Titulo"));
@@ -77,6 +85,9 @@ public class DonationActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Ao clicar no botão "Ver imagem", carrega a img;
+     */
     @Override
     public void onImageClick() {
         doacao = new Produto();
@@ -85,6 +96,9 @@ public class DonationActivity extends AppCompatActivity
         volleyService.postDataVolley(GETIMAGE, IMAGEM_URL, doacaoJson);
     }
 
+    /**
+     * Ao clicar no botão "Solicitar doação" abre a view de solicitar pedido(enviar msg)
+     */
     @Override
     public void onSolicitarClick() {
         Log.d("doacaoId", String.valueOf(doacaoId));
@@ -95,6 +109,10 @@ public class DonationActivity extends AppCompatActivity
         volleyService.postDataVolley(POSTSOLICITACAO, SOLICITACAO_URL, requestPostJson);
     }
 
+    /**
+     * Recebe a resposta do servidor, referente a solicitação do produto
+     * @param response
+     */
     private void postSolicitacaoSucess(String response){
         Log.d("solicitacaoResponse", response);
         RequestResult requestResult = new Gson().fromJson(response, RequestResult.class);
@@ -109,6 +127,10 @@ public class DonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Recebe a img do servidor e mostra na tela
+     * @param response
+     */
     private void getImageSucess(String response){
         Log.d("response", response);
         ImageResponse imageResponse = new Gson().fromJson(response, ImageResponse.class);
@@ -122,9 +144,16 @@ public class DonationActivity extends AppCompatActivity
                 break;
         }
     }
-
+    /**
+     * Receber uma resposta do servidor
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
+            /**
+             * Sucesso na conexão com o servidor
+             * @param requestType
+             * @param response
+             */
             @Override
             public void notifySuccess(String requestType, String response) {
                 if(requestType.equals(POSTSOLICITACAO)){
@@ -134,7 +163,11 @@ public class DonationActivity extends AppCompatActivity
                     getImageSucess(response);
                 }
             }
-
+            /**
+             * Erro na conexão com o servidor(Ex: Sem internet)
+             * @param requestType
+             * @param error
+             */
             @Override
             public void notifyError(String requestType, VolleyError error) {
                 Log.d("Erro na conexao", error.toString());

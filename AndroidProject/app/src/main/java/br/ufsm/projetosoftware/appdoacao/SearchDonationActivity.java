@@ -31,6 +31,9 @@ import br.ufsm.projetosoftware.appdoacao.view.NewDonationView;
 import br.ufsm.projetosoftware.appdoacao.view.SearchDonationView;
 import br.ufsm.projetosoftware.appdoacao.view.SearchDonationViewImpl;
 
+/**
+ * Activity para buscar os produtos
+ */
 public class SearchDonationActivity extends AppCompatActivity
         implements SearchDonationView.BuscaListener,
         SearchDonationView.ListListener,
@@ -43,6 +46,10 @@ public class SearchDonationActivity extends AppCompatActivity
     private String searchURL;
     private List<Produto> searchList;
 
+    /**
+     * Inicializa a Activity
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +64,9 @@ public class SearchDonationActivity extends AppCompatActivity
         volleyService = new VolleyServiceString(resultCallback, this);
     }
 
+    /**
+     * Ao clicar no botão 'Buscar', executa o metodo
+     */
     @Override
     public void onBuscaClick() {
         SearchPost search = new SearchPost();
@@ -68,6 +78,10 @@ public class SearchDonationActivity extends AppCompatActivity
         volleyService.postDataVolley(POSTSEARCH, searchURL, searchJson);
     }
 
+    /**
+     * Ao clicar sobre algum item da lista de produtos
+     * @param id
+     */
     @Override
     public void onListItemClick(int id) {
         Intent viewItem = new Intent(SearchDonationActivity.this, DonationActivity.class);
@@ -81,6 +95,10 @@ public class SearchDonationActivity extends AppCompatActivity
         startActivity(viewItem);
     }
 
+    /**
+     * Ao selecionar o tipo, carrega as categorias pertencentes.
+     * @param id
+     */
     @Override
     public void onSelectTipo(long id) {
         if(id == 1){
@@ -91,6 +109,10 @@ public class SearchDonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Se conseguir conectar com o servidor, traz a informação;
+     * @param response
+     */
     private void postSearchSucess(String response){
         Log.d("respostaSearch", response);
         if(response.length() < 20){
@@ -108,15 +130,27 @@ public class SearchDonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Receber uma resposta do servidor
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
+            /**
+             * Sucesso na conexão com o servidor
+             * @param requestType
+             * @param response
+             */
             @Override
             public void notifySuccess(String requestType, String response) {
                 if(requestType.equals(POSTSEARCH)){
                     postSearchSucess(response);
                 }
             }
-
+            /**
+             * Erro na conexão com o servidor(Ex: Sem internet)
+             * @param requestType
+             * @param error
+             */
             @Override
             public void notifyError(String requestType, VolleyError error) {
                 Log.d("Erro na conexao", error.toString());

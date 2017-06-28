@@ -7,7 +7,8 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 
 /**
- * Created by Felipe on 03/06/2017.
+ * Classe do produto com metodos gets e sets
+ * Created on 24/06/2017.
  */
 
 public class Produto {
@@ -69,6 +70,10 @@ public class Produto {
         this.categoria = categoria;
     }
 
+    /**
+     * Retorna a img do produto;
+     * @return
+     */
     public Bitmap getImagem() {
         Bitmap bitmapImage = null;
         if(imagem != null){
@@ -78,6 +83,10 @@ public class Produto {
         return bitmapImage;
     }
 
+    /**
+     * Pega a img que esta no formato da Bitmap e transforma para PNG, e transforma em string
+     * @param bitmapImage
+     */
     public void setImagem(Bitmap bitmapImage) {
         ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
         bitmapImage.compress(Bitmap.CompressFormat.PNG, 100,

@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 04/06/2017.
+ * Resposta de busca do CEP
+ * Created on 24/06/2017.
  */
 
 public class CEPResponse {

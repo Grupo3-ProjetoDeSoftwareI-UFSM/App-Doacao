@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 04/06/2017.
+ * Parâmetros a ser enviado para servidor, ao fazer login
+ * Created on 24/06/2017.
  */
 
 public class LoginPost {

@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 23/06/2017.
+ * Envia a busca ao servidor
+ * Created on 24/06/2017.
  */
 
 public class SearchPost {

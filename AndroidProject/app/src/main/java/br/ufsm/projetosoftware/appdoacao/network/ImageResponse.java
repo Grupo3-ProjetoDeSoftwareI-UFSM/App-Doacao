@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 17/06/2017.
+ * Resposta de Busca da IMG
+ * Created on 24/06/2017.
  */
 
 public class ImageResponse {

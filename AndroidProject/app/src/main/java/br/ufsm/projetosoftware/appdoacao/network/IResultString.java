@@ -3,7 +3,8 @@ package br.ufsm.projetosoftware.appdoacao.network;
 import com.android.volley.VolleyError;
 
 /**
- * Created by Felipe on 04/06/2017.
+ * Interface de envio dos dados ao servidor
+ * Created on 24/06/2017.
  */
 
 public interface IResultString {
