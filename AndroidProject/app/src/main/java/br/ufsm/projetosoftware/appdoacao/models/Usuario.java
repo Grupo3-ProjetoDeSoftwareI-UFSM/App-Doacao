@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 03/06/2017.
+ * Classe do Usuário;
+ * Created on 24/06/2017.
  */
 
 public class Usuario {

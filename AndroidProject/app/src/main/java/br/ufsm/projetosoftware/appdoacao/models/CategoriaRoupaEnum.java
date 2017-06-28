@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 10/06/2017.
+ * Categorias de roupas para activity de Cadastro
+ * Created on 24/06/2017.
  */
 
 public enum CategoriaRoupaEnum {

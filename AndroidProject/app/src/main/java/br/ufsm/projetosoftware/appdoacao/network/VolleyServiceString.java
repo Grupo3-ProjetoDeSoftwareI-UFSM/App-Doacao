@@ -14,7 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Felipe on 04/06/2017.
+ * Implementa a biblioteca Volley para comunicação com o servidor;
+ * Created on 24/06/2017.
  */
 
 public class VolleyServiceString {

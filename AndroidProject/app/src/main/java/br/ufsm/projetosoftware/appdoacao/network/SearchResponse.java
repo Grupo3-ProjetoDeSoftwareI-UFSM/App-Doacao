@@ -7,7 +7,8 @@ import java.util.List;
 import br.ufsm.projetosoftware.appdoacao.models.Produto;
 
 /**
- * Created by Felipe on 23/06/2017.
+ * Resposta da busca pelo servidor
+ * Created on 24/06/2017.
  */
 
 public class SearchResponse {

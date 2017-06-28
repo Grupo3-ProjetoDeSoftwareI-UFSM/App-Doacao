@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 27/06/2017.
+ * Status do produto. Se ja foi ou não doado;
+ * Created on 24/06/2017.
  */
 
 public enum StatusEnum {

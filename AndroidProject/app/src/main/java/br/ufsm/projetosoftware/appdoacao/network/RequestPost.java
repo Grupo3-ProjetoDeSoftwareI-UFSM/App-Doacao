@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 24/06/2017.
+ * Ao solicitar produto, envia ao servidor
+ * Created on 24/06/2017.
  */
 
 public class RequestPost {

@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 24/06/2017.
+ * Categorias de materias de construção para activity de busca
+ * Created on 24/06/2017.
  */
 
 public enum CategoriaMaterialConstrucaoBuscaEnum {
