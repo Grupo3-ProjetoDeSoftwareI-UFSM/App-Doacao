@@ -9,9 +9,11 @@ import static org.junit.Assert.*;
  * Created by Kipper on 13/06/2017.
  */
 
+
+/*
 public class UserDataUtilTest {
 
-    /*Teste Email se é válido*/
+    /*Teste Email se é válido
     @Test
     public void testeEMail() {
 
@@ -51,4 +53,8 @@ public class UserDataUtilTest {
         assertTrue("O cep tem tamanho de 8 digitos",cep.length() == 8);
     }
 }
+
+
+ */
+
 
