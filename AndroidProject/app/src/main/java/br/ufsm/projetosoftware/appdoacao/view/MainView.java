@@ -17,10 +17,16 @@ public interface MainView extends ViewMvc {
         void onListDonationClick();
     }
 
+    interface ListRequestButtonListener{
+        void onListRequestClick();
+    }
+
     void setNewDonationListener(NewDonationButtonListener listener);
 
     void setSearchDonationListener(SearchDonationButtonListener listener);
 
     void setListDonationListener(ListDonationButtonListener listener);
+
+    void setListRequestListener(ListRequestButtonListener listener);
 
 }

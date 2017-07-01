@@ -7,4 +7,5 @@
     <string name="getImageURL">http://www.appdoacao.esy.es/getImagem.php</string>
     <string name="searchURL">http://www.appdoacao.esy.es/donationSearch.php</string>
     <string name="listDonationURL">http://www.appdoacao.esy.es/donationList.php</string>
+    <string name="listRequestURL">http://www.appdoacao.esy.es/requestList.php</string>
 </resources>

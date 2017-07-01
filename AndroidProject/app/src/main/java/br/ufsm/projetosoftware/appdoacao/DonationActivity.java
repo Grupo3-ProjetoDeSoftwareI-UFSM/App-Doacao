@@ -1,6 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -101,12 +102,10 @@ public class DonationActivity extends AppCompatActivity
      */
     @Override
     public void onSolicitarClick() {
-        Log.d("doacaoId", String.valueOf(doacaoId));
-        Log.d("uid", String.valueOf(uid));
-        RequestPost requestPost = new RequestPost(doacaoId, uid);
-        String requestPostJson = new Gson().toJson(requestPost, RequestPost.class);
-        Log.d("requestJson", requestPostJson);
-        volleyService.postDataVolley(POSTSOLICITACAO, SOLICITACAO_URL, requestPostJson);
+        Intent toRequest = new Intent(DonationActivity.this, RequestPost.class);
+        toRequest.putExtra("Titulo", extras.getString("Titulo"));
+        toRequest.putExtra("doacaoId", doacaoId);
+        startActivity(toRequest);
     }
 
     /**
