@@ -8,6 +8,8 @@ package br.ufsm.projetosoftware.appdoacao.network;
 public class RequestPost {
     int doacao;
     int interessado;
+    String justificativa;
+    String authToken;
 
     public RequestPost() {
     }
@@ -31,5 +33,21 @@ public class RequestPost {
 
     public void setInteressado(int interessado) {
         this.interessado = interessado;
+    }
+
+    public String getJustificativa() {
+        return justificativa;
+    }
+
+    public void setJustificativa(String justificativa) {
+        this.justificativa = justificativa;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 }

@@ -31,7 +31,10 @@
         <activity android:name=".NewDonationActivity" />
         <activity android:name=".DonationActivity" />
         <activity android:name=".SearchDonationActivity" />
-        <activity android:name=".ListDonationActivity"></activity>
+        <activity android:name=".ListDonationActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".RequestActivity" />
+        <activity android:name=".ListRequestActivity"></activity>
     </application>
 
 </manifest>
