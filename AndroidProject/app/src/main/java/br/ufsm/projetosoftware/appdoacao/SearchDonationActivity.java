@@ -92,6 +92,7 @@ public class SearchDonationActivity extends AppCompatActivity
         viewItem.putExtra("ImageId", produto.getImageId());
         viewItem.putExtra("uid", produto.getDoador());
         viewItem.putExtra("doacaoId", produto.getPid());
+        viewItem.putExtra("intent", DonationActivity.ISOLICITA);
         startActivity(viewItem);
     }
 

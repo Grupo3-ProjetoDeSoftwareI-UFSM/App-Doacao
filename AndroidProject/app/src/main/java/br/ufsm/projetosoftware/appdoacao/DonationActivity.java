@@ -35,19 +35,23 @@ public class DonationActivity extends AppCompatActivity
     private DonationView donationView;
     private IResultString resultCallback = null;
     private VolleyServiceString volleyService;
-    private static String POSTSOLICITACAO = "POSTSOLICITACAO";
+    private static String POSTCANCELAR = "POSTCANCELAR";
     private static String GETIMAGE = "GETIMAGE";
-    private String SOLICITACAO_URL;
+    private String CANCELAR_URL;
     private String IMAGEM_URL;
     private Bitmap image;
     private SharedPreferences loginSettings;
     private String authToken;
     private Bundle extras;
-    Produto doacao;
+    private Produto doacao;
     private String imageId;
     private String doadorId;
     private int uid;
     private int doacaoId;
+    public static final int ISOLICITA = 1;
+    public static final int ICANCELA = 2;
+    public static final int IVISUALIZA = 3;
+    int intent;
 
     /**
      * Inicializa a Activity
@@ -63,7 +67,7 @@ public class DonationActivity extends AppCompatActivity
         loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         authToken = loginSettings.getString("authToken", null);
         uid = loginSettings.getInt("uid", 0);
-        SOLICITACAO_URL = getString(R.string.solicitarDoacaoURL);
+        CANCELAR_URL = getString(R.string.cancelarDoacaoURL);
         IMAGEM_URL = getString(R.string.getImageURL);
         initCallback();
         volleyService = new VolleyServiceString(resultCallback, this);
@@ -82,8 +86,24 @@ public class DonationActivity extends AppCompatActivity
             imageId = extras.getString("ImageId");
             doadorId = extras.getString("uid");
             doacaoId = extras.getInt("doacaoId");
+            intent = extras.getInt("intent");
+            setButton();
         }
 
+    }
+
+    private void setButton() {
+        switch (intent){
+            case ISOLICITA:
+                donationView.setButtonText("CONFIRMAR SOLICITAÇÃO");
+                break;
+            case ICANCELA:
+                donationView.setButtonText("CANCELAR DOAÇÃO");
+                break;
+            case IVISUALIZA:
+                donationView.disableSolicitarButton();
+                break;
+        }
     }
 
     /**
@@ -102,26 +122,50 @@ public class DonationActivity extends AppCompatActivity
      */
     @Override
     public void onSolicitarClick() {
-        Intent toRequest = new Intent(DonationActivity.this, RequestPost.class);
+        switch (intent){
+            case ISOLICITA:
+                solicitar();
+                break;
+            case ICANCELA:
+                cancelar();
+                break;
+            case IVISUALIZA:
+                donationView.disableSolicitarButton();
+                break;
+        }
+    }
+
+    private void solicitar(){
+        Intent toRequest = new Intent(DonationActivity.this, RequestActivity.class);
         toRequest.putExtra("Titulo", extras.getString("Titulo"));
         toRequest.putExtra("doacaoId", doacaoId);
         startActivity(toRequest);
+    }
+
+    private void cancelar(){
+        RequestPost requestPost = new RequestPost();
+        requestPost.setAuthToken(authToken);
+        requestPost.setDoacao(doacaoId);
+        String requestPostJson = new Gson().toJson(requestPost, RequestPost.class);
+        Log.d("requestCancela", requestPostJson);
+        volleyService.postDataVolley(POSTCANCELAR, CANCELAR_URL, requestPostJson);
     }
 
     /**
      * Recebe a resposta do servidor, referente a solicitação do produto
      * @param response
      */
-    private void postSolicitacaoSucess(String response){
-        Log.d("solicitacaoResponse", response);
+    private void postCancelarSucess(String response){
+        Log.d("cancelamentoResponse", response);
         RequestResult requestResult = new Gson().fromJson(response, RequestResult.class);
         switch (requestResult.getSuccess()){
             case 0:
-                Toast.makeText(DonationActivity.this, "Solicitação efetuada com sucesso.",Toast.LENGTH_LONG).show();
-                donationView.disableSolicitarButton();
+                Toast.makeText(DonationActivity.this, "Doacao cancelada com sucesso.",Toast.LENGTH_LONG).show();
+                Intent toListDonation= new Intent(DonationActivity.this, ListDonationActivity.class);
+                startActivity(toListDonation);
                 break;
             case 1:
-                Toast.makeText(DonationActivity.this, "Erro na solicitação.",Toast.LENGTH_LONG).show();
+                Toast.makeText(DonationActivity.this, "Erro no cancelamento.",Toast.LENGTH_LONG).show();
                 break;
         }
     }
@@ -155,8 +199,8 @@ public class DonationActivity extends AppCompatActivity
              */
             @Override
             public void notifySuccess(String requestType, String response) {
-                if(requestType.equals(POSTSOLICITACAO)){
-                    postSolicitacaoSucess(response);
+                if(requestType.equals(POSTCANCELAR)){
+                    postCancelarSucess(response);
                 }
                 if(requestType.equals(GETIMAGE)){
                     getImageSucess(response);

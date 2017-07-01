@@ -1,6 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 
+import java.util.List;
+
+import br.ufsm.projetosoftware.appdoacao.models.Produto;
 import br.ufsm.projetosoftware.appdoacao.models.StatusEnum;
 import br.ufsm.projetosoftware.appdoacao.network.IResultString;
 import br.ufsm.projetosoftware.appdoacao.network.ListPost;
@@ -33,6 +37,7 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
     private int uid;
     private String authToken;
     private SharedPreferences loginSettings;
+    private List<Produto> listaProduto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,18 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
 
     @Override
     public void onSelectList(int id) {
+        Produto produto = listaProduto.get(id);
+        if(produto != null){
+            Intent toDonationActivity = new Intent(ListRequestActivity.this, DonationActivity.class);
+            toDonationActivity.putExtra("Titulo", produto.getTitulo());
+            toDonationActivity.putExtra("Categoria", produto.getTipoCategoria());
+            toDonationActivity.putExtra("Descricao", produto.getDescricao());
+            toDonationActivity.putExtra("ImageId", produto.getImageId());
+            toDonationActivity.putExtra("DoacaoId", produto.getPid());
+            toDonationActivity.putExtra("intent", DonationActivity.IVISUALIZA);
+            startActivity(toDonationActivity);
+
+        }
 
     }
 
@@ -67,6 +84,7 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
         Log.d("postListsucess", response);
         SearchResponse searchResponse = new Gson().fromJson(response, SearchResponse.class);
         if(searchResponse != null) {
+            listaProduto = searchResponse.getListaProduto();
             ListAdapter adapter = new SimpleAdapter(ListRequestActivity.this,
                     searchResponse.getMapProduto(),
                     R.layout.item_list,

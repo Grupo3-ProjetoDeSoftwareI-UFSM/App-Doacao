@@ -1,6 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -70,6 +71,7 @@ public class RequestActivity
         switch (requestResult.getSuccess()){
             case 0:
                 Toast.makeText(RequestActivity.this, "Solicitação efetuada com sucesso.",Toast.LENGTH_LONG).show();
+                toListRequest();
                 break;
             case 1:
                 Toast.makeText(RequestActivity.this, "Erro na solicitação.",Toast.LENGTH_LONG).show();
@@ -107,5 +109,10 @@ public class RequestActivity
                 Toast.makeText(RequestActivity.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         };
+    }
+
+    private void toListRequest(){
+        Intent toListRequest = new Intent(RequestActivity.this, ListRequestActivity.class);
+        startActivity(toListRequest);
     }
 }

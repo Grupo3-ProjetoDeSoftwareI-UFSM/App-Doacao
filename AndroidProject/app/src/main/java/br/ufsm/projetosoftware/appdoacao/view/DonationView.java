@@ -29,4 +29,6 @@ public interface DonationView extends ViewMvc{
     void setSolicitarListener(SolicitarButtonListener listener);
 
     void  disableSolicitarButton();
+
+    void setButtonText(String text);
 }

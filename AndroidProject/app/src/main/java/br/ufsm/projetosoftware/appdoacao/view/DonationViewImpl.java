@@ -93,6 +93,11 @@ public class DonationViewImpl implements DonationView{
     }
 
     @Override
+    public void setButtonText(String text) {
+        btSolicitar.setText(text);
+    }
+
+    @Override
     public View getRootView() {
         return rootView;
     }
