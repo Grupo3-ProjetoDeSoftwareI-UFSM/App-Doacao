@@ -51,6 +51,7 @@ public class NewDonationActivity extends AppCompatActivity
     private String authToken;
     private Produto doacao;
     private String uid;
+    private int pid;
 
     /**
      * Inicializa a Activity
@@ -195,6 +196,7 @@ public class NewDonationActivity extends AppCompatActivity
         i.putExtra("ImageId", doacao.getImageId());
         i.putExtra("uid", uid);
         i.putExtra("intent", DonationActivity.ICANCELA);
+        i.putExtra("doacaoId", pid);
         startActivity(i);
     }
 
@@ -207,6 +209,7 @@ public class NewDonationActivity extends AppCompatActivity
         NewDonationResponse donationResponse = new Gson().fromJson(response, NewDonationResponse.class);
         doacao.setImageId(donationResponse.getImageId());
         uid = donationResponse.getUid();
+        pid = donationResponse.getPid();
         switch (donationResponse.getReturnCode()){
             case 0:
                 Toast.makeText(NewDonationActivity.this,donationResponse.getMessage(),Toast.LENGTH_LONG).show();

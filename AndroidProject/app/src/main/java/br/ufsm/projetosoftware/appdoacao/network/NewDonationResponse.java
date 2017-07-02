@@ -11,6 +11,7 @@ public class NewDonationResponse {
     String imageId;
     int returnCode;
     String message;
+    int pid;
 
     public NewDonationResponse() {
     }
@@ -50,5 +51,13 @@ public class NewDonationResponse {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 }

@@ -14,8 +14,8 @@ import br.ufsm.projetosoftware.appdoacao.models.Produto;
 public class SearchResponse {
 
     private List<Produto> listaProduto = new ArrayList<>();
-    public String KEY_TITULO = "titulo";
-    public String KEY_CATEGORIA = "tipocategoria";
+    public final static String KEY_TITULO = "titulo";
+    public final static String KEY_CATEGORIA = "tipocategoria";
 
     public List<Produto> getListaProduto(){
         return listaProduto;

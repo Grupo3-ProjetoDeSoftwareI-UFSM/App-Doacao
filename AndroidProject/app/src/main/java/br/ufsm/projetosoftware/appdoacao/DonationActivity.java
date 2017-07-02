@@ -30,7 +30,7 @@ import br.ufsm.projetosoftware.appdoacao.view.DonationViewImpl;
 
 public class DonationActivity extends AppCompatActivity
         implements DonationView.ImageButtonListener,
-        DonationView.SolicitarButtonListener{
+        DonationView.SolicitarButtonListener, DonationView.SolicitacoesButtonListener{
 
     private DonationView donationView;
     private IResultString resultCallback = null;
@@ -64,6 +64,7 @@ public class DonationActivity extends AppCompatActivity
         donationView = new DonationViewImpl(getWindow().getDecorView().getRootView());
         donationView.setImageListener(this);
         donationView.setSolicitarListener(this);
+        donationView.setSolicitacoesListener(this);
         loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         authToken = loginSettings.getString("authToken", null);
         uid = loginSettings.getInt("uid", 0);
@@ -95,9 +96,10 @@ public class DonationActivity extends AppCompatActivity
     private void setButton() {
         switch (intent){
             case ISOLICITA:
-                donationView.setButtonText("CONFIRMAR SOLICITAÇÃO");
+                donationView.setButtonText("SOLICITAR DOAÇÃO");
                 break;
             case ICANCELA:
+                donationView.visibilitySolicitacoesButton(true);
                 donationView.setButtonText("CANCELAR DOAÇÃO");
                 break;
             case IVISUALIZA:
@@ -114,6 +116,7 @@ public class DonationActivity extends AppCompatActivity
         doacao = new Produto();
         doacao.setImageId(imageId);
         String doacaoJson = new Gson().toJson(doacao);
+        Log.d("Imagem Json", doacaoJson);
         volleyService.postDataVolley(GETIMAGE, IMAGEM_URL, doacaoJson);
     }
 
@@ -177,14 +180,19 @@ public class DonationActivity extends AppCompatActivity
     private void getImageSucess(String response){
         Log.d("response", response);
         ImageResponse imageResponse = new Gson().fromJson(response, ImageResponse.class);
-        switch (imageResponse.getReturnCode()){
-            case 0:
-                doacao.setImagem(imageResponse.getImage());
-                donationView.setImagem(doacao.getImagem());
-                break;
-            case 1:
-                Toast.makeText(DonationActivity.this, imageResponse.getMessage(),Toast.LENGTH_LONG).show();
-                break;
+        if(imageResponse != null) {
+            switch (imageResponse.getReturnCode()) {
+                case 0:
+                    doacao.setImagem(imageResponse.getImage());
+                    donationView.setImagem(doacao.getImagem());
+                    break;
+                case 1:
+                    Toast.makeText(DonationActivity.this, imageResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    break;
+            }
+        }
+        else{
+            Toast.makeText(DonationActivity.this, "Sem imagem disponivel", Toast.LENGTH_LONG).show();
         }
     }
     /**
@@ -217,5 +225,12 @@ public class DonationActivity extends AppCompatActivity
                 Toast.makeText(DonationActivity.this,error.toString(),Toast.LENGTH_LONG).show();
             }
         };
+    }
+
+    @Override
+    public void onSolicitacoesClick() {
+        Intent toSolicitacoes = new Intent(DonationActivity.this, SolicitacoesActivity.class);
+        toSolicitacoes.putExtra("doacaoId", doacaoId);
+        startActivity(toSolicitacoes);
     }
 }

@@ -19,12 +19,14 @@ public class DonationViewImpl implements DonationView{
     private View rootView;
     private ImageButtonListener imageButtonListener;
     private SolicitarButtonListener solicitarButtonListener;
+    private SolicitacoesButtonListener solicitacoesButtonListener;
     private TextView tvTitulo;
     private TextView tvCategoria;
     private TextView tvDescricao;
     private Button btImagem;
     private ImageView ivImagem;
     private Button btSolicitar;
+    private Button btSolicitacoes;
 
     public DonationViewImpl(View view){
         rootView = view;
@@ -45,6 +47,14 @@ public class DonationViewImpl implements DonationView{
                 }
             }
         });
+        btSolicitacoes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(solicitacoesButtonListener != null){
+                    solicitacoesButtonListener.onSolicitacoesClick();
+                }
+            }
+        });
     }
 
     private void initialize(){
@@ -54,6 +64,7 @@ public class DonationViewImpl implements DonationView{
         btImagem = (Button) rootView.findViewById(R.id.bt_imagem);
         ivImagem = (ImageView)rootView.findViewById(R.id.iv_imagem);
         btSolicitar = (Button) rootView.findViewById(R.id.bt_solicitar);
+        btSolicitacoes = (Button) rootView.findViewById(R.id.bt_solicitacoes);
     }
 
     @Override
@@ -88,6 +99,11 @@ public class DonationViewImpl implements DonationView{
     }
 
     @Override
+    public void setSolicitacoesListener(SolicitacoesButtonListener listener) {
+        solicitacoesButtonListener = listener;
+    }
+
+    @Override
     public void disableSolicitarButton() {
         btSolicitar.setEnabled(false);
     }
@@ -95,6 +111,16 @@ public class DonationViewImpl implements DonationView{
     @Override
     public void setButtonText(String text) {
         btSolicitar.setText(text);
+    }
+
+    @Override
+    public void visibilitySolicitacoesButton(boolean visibility) {
+        if(visibility){
+            btSolicitacoes.setVisibility(View.VISIBLE);
+        }
+        else{
+            btSolicitacoes.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

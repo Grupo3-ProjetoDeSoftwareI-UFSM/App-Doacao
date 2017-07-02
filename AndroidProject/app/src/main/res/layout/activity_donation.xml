@@ -48,6 +48,16 @@
         android:layout_height="match_parent">
 
         <Button
+            android:id="@+id/bt_solicitacoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="70dp"
+            android:visibility="invisible"
+            android:text="Solicitações"/>
+
+        <Button
             android:id="@+id/bt_solicitar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

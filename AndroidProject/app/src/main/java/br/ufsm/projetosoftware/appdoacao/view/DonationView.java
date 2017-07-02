@@ -16,6 +16,10 @@ public interface DonationView extends ViewMvc{
         void onSolicitarClick();
     }
 
+    interface SolicitacoesButtonListener{
+        void onSolicitacoesClick();
+    }
+
     void setTitulo(String titulo);
 
     void setCategoria(String categoria);
@@ -28,7 +32,11 @@ public interface DonationView extends ViewMvc{
 
     void setSolicitarListener(SolicitarButtonListener listener);
 
-    void  disableSolicitarButton();
+    void setSolicitacoesListener(SolicitacoesButtonListener listener);
+
+    void disableSolicitarButton();
 
     void setButtonText(String text);
+
+    void visibilitySolicitacoesButton(boolean visibility);
 }
