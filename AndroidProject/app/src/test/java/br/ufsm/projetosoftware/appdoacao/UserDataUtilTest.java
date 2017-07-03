@@ -31,6 +31,7 @@ public class UserDataUtilTest {
         Assert.assertEquals(false, actual);
     }
 
+    //Teste Cep
     @Test
     public void isCEPValidTest1() {
         boolean actual = UserDataUtil.isCEPValid("970323120");
