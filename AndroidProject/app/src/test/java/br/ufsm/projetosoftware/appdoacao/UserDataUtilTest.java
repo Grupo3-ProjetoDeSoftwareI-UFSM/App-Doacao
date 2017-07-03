@@ -1,60 +1,83 @@
 package br.ufsm.projetosoftware.appdoacao;
 import org.junit.Assert;
 import org.junit.Test;
+import java.util.Queue;
 
 import br.ufsm.projetosoftware.appdoacao.utils.UserDataUtil;
 
 import static org.junit.Assert.*;
-/**
- * Created by Kipper on 13/06/2017.
- */
 
-
-/*
 public class UserDataUtilTest {
 
-    /*Teste Email se é válido
+
+    //Teste Email
+
     @Test
     public void testeEMail() {
-
-//diferencia letra maiscula de minuscula
-            UserDataUtil testmail = new UserDataUtil();
-            assertEquals("São Iguais,","michelep@inf.ufsm.br","MICHELEP@INF.UFSM.BR");
+        boolean actual = UserDataUtil.isEmailValid("michelep@inf.ufsm.br");
+        Assert.assertEquals(true, actual);
     }
 
-    // Testa se a senha é maior que 4
-
+    // Testa senha
     @Test
-    public  void isPasswordValidTest1(){
-        String password = "1234";
-
-        UserDataUtil testSenha = new UserDataUtil();
-        assertTrue("A senha é maior que 4",password.length() > 4);
+    public void isPasswordValidTest1() {
+        boolean actual = UserDataUtil.isPasswordValid("2017lá!");
+        Assert.assertEquals(true, actual);
     }
 
     @Test
-    public  void isPasswordValidTest2(){
-        UserDataUtil testSenha = new UserDataUtil();
-        String password = "12wsuh";
-        assertTrue("A senha é maior que 4",password.length() > 4);
-        }
-
-    //Test tamanho digito Cep
-    @Test
-    public void isCEPValidTest() {
-        UserDataUtil Cep = new UserDataUtil();
-        String cep = "9289189";
-        assertTrue("O cep tem tamanho de 8 digitos",cep.length() == 8);
+    public void isPasswordValidTest2() {
+        boolean actual = UserDataUtil.isPasswordValid("1234");
+        Assert.assertEquals(false, actual);
     }
+
     @Test
     public void isCEPValidTest1() {
-        UserDataUtil Cep = new UserDataUtil();
-        String cep = "92891896";
-        assertTrue("O cep tem tamanho de 8 digitos",cep.length() == 8);
+        boolean actual = UserDataUtil.isCEPValid("970323120");
+        Assert.assertEquals(false, actual);
     }
+
+    @Test
+    public void isCEPValidTest2() {
+        boolean actual = UserDataUtil.isCEPValid("97032120");
+        Assert.assertEquals(true, actual);
+    }
+
+    //Test Cpf
+    @Test
+    public void testIsCpfValido() {
+        boolean actual = UserDataUtil.isCPFValid("00933070711");
+        Assert.assertEquals(false, actual);
+    }
+
+    @Test
+    public void testIsCpfValido_1() {
+        boolean actual = UserDataUtil.isCPFValid("00933070711");
+        Assert.assertEquals(false, actual);
+    }
+
+    @Test
+    public void testIsCpfValido_2() {
+        boolean actual = UserDataUtil.isCPFValid("57249755307");
+        Assert.assertEquals(true, actual);
+    }
+
+    @Test
+    public void testIsCpfValido_3() {
+        boolean actual = UserDataUtil.isCPFValid("14909973232");
+        Assert.assertEquals(false, actual);
+    }
+
+    //Teste CNPJ
+    @Test
+    public void testIsCNPJ() {
+        boolean actual = UserDataUtil.isCNPJValid("21.155.071/0001-33");
+        Assert.assertEquals(false, actual);
+    }
+
 }
 
 
- */
+
 
 
