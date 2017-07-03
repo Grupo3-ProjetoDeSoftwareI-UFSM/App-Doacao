@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -48,8 +46,9 @@ public class DonationActivity extends AppCompatActivity
     private String doadorId;
     private int uid;
     private int doacaoId;
+    private int idSolicitacao;
     public static final int ISOLICITA = 1;
-    public static final int ICANCELA = 2;
+    public static final int IDOADOR = 2;
     public static final int IVISUALIZA = 3;
     int intent;
 
@@ -87,6 +86,7 @@ public class DonationActivity extends AppCompatActivity
             imageId = extras.getString("ImageId");
             doadorId = extras.getString("uid");
             doacaoId = extras.getInt("doacaoId");
+            idSolicitacao = extras.getInt("idSolicitacao");
             intent = extras.getInt("intent");
             setButton();
         }
@@ -96,13 +96,15 @@ public class DonationActivity extends AppCompatActivity
     private void setButton() {
         switch (intent){
             case ISOLICITA:
-                donationView.setButtonText("SOLICITAR DOAÇÃO");
+                donationView.setBottomButtonText("SOLICITAR DOAÇÃO");
                 break;
-            case ICANCELA:
-                donationView.visibilitySolicitacoesButton(true);
-                donationView.setButtonText("CANCELAR DOAÇÃO");
+            case IDOADOR:
+                donationView.visibilityTopButton(true);
+                donationView.setBottomButtonText("CANCELAR DOAÇÃO");
                 break;
             case IVISUALIZA:
+                donationView.setTopButtonText("CHAT");
+                donationView.visibilityTopButton(true);
                 donationView.disableSolicitarButton();
                 break;
         }
@@ -129,7 +131,7 @@ public class DonationActivity extends AppCompatActivity
             case ISOLICITA:
                 solicitar();
                 break;
-            case ICANCELA:
+            case IDOADOR:
                 cancelar();
                 break;
             case IVISUALIZA:
@@ -229,8 +231,15 @@ public class DonationActivity extends AppCompatActivity
 
     @Override
     public void onSolicitacoesClick() {
-        Intent toSolicitacoes = new Intent(DonationActivity.this, SolicitacoesActivity.class);
-        toSolicitacoes.putExtra("doacaoId", doacaoId);
-        startActivity(toSolicitacoes);
+        if(intent == IDOADOR) {
+            Intent toSolicitacoes = new Intent(DonationActivity.this, SolicitacoesActivity.class);
+            toSolicitacoes.putExtra("doacaoId", doacaoId);
+            startActivity(toSolicitacoes);
+        }
+        if(intent == IVISUALIZA){
+            Intent toChat = new Intent(DonationActivity.this, ChatActivity.class);
+            toChat.putExtra("idSolicitacao", idSolicitacao);
+            startActivity(toChat);
+        }
     }
 }

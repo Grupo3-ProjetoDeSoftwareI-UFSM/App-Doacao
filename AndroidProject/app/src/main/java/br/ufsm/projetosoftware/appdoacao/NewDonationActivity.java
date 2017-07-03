@@ -195,7 +195,7 @@ public class NewDonationActivity extends AppCompatActivity
         i.putExtra("Descricao", doacao.getDescricao());
         i.putExtra("ImageId", doacao.getImageId());
         i.putExtra("uid", uid);
-        i.putExtra("intent", DonationActivity.ICANCELA);
+        i.putExtra("intent", DonationActivity.IDOADOR);
         i.putExtra("doacaoId", pid);
         startActivity(i);
     }

@@ -10,4 +10,6 @@
     <string name="listRequestURL">http://www.appdoacao.esy.es/requestList.php</string>
     <string name="cancelarDoacaoURL">http://www.appdoacao.esy.es/donationCancel.php</string>
     <string name="listSolicitacoesURL">http://www.appdoacao.esy.es/solicitacoesList.php</string>
+    <string name="chatURL">http://www.appdoacao.esy.es/getChat.php</string>
+    <string name="mensagemURL">http://www.appdoacao.esy.es/postMensagem.php</string>
 </resources>

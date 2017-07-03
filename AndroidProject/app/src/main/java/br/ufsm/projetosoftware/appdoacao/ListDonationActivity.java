@@ -72,7 +72,7 @@ public class ListDonationActivity extends AppCompatActivity
             toDonationActivity.putExtra("Descricao", produto.getDescricao());
             toDonationActivity.putExtra("ImageId", produto.getImageId());
             toDonationActivity.putExtra("doacaoId", produto.getPid());
-            toDonationActivity.putExtra("intent", DonationActivity.ICANCELA);
+            toDonationActivity.putExtra("intent", DonationActivity.IDOADOR);
             startActivity(toDonationActivity);
 
         }

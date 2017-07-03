@@ -1,6 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,7 +53,10 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
 
     @Override
     public void onSolicitacaoClick(int id) {
-        //TODO startchat
+        Solicitacao solicitacao = listaSolicitacao.get(id);
+        Intent toChat = new Intent(SolicitacoesActivity.this, ChatActivity.class);
+        toChat.putExtra("idSolicitacao", solicitacao.getSid());
+        startActivity(toChat);
     }
 
     private void getList(){

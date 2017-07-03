@@ -9,6 +9,7 @@ public class Solicitacao {
     private String nome;
     private String justificativa;
     private int interessado;
+    private int sid;
 
     public Solicitacao() {
     }
@@ -35,5 +36,13 @@ public class Solicitacao {
 
     public void setInteressado(int interessado) {
         this.interessado = interessado;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 }

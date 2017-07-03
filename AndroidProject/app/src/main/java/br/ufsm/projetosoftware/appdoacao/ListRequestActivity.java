@@ -64,6 +64,7 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
             toDonationActivity.putExtra("Descricao", produto.getDescricao());
             toDonationActivity.putExtra("ImageId", produto.getImageId());
             toDonationActivity.putExtra("DoacaoId", produto.getPid());
+            toDonationActivity.putExtra("idSolicitacao", produto.getSid());
             toDonationActivity.putExtra("intent", DonationActivity.IVISUALIZA);
             startActivity(toDonationActivity);
 

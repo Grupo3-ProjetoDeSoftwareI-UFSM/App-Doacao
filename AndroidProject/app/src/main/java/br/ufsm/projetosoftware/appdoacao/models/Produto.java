@@ -24,6 +24,7 @@ public class Produto {
     String status;
     Integer doador;
     String authToken;
+    Integer sid;
 
 
     public Produto() {
@@ -141,5 +142,13 @@ public class Produto {
 
     public String getTipoCategoria(){
         return tipo + " > " + categoria;
+    }
+
+    public Integer getSid() {
+        return sid;
+    }
+
+    public void setSid(Integer sid) {
+        this.sid = sid;
     }
 }

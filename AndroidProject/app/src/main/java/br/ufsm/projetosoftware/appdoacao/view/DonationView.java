@@ -36,7 +36,9 @@ public interface DonationView extends ViewMvc{
 
     void disableSolicitarButton();
 
-    void setButtonText(String text);
+    void setBottomButtonText(String text);
 
-    void visibilitySolicitacoesButton(boolean visibility);
+    void setTopButtonText(String text);
+
+    void visibilityTopButton(boolean visibility);
 }

@@ -109,12 +109,17 @@ public class DonationViewImpl implements DonationView{
     }
 
     @Override
-    public void setButtonText(String text) {
+    public void setBottomButtonText(String text) {
         btSolicitar.setText(text);
     }
 
     @Override
-    public void visibilitySolicitacoesButton(boolean visibility) {
+    public void setTopButtonText(String text) {
+        btSolicitacoes.setText(text);
+    }
+
+    @Override
+    public void visibilityTopButton(boolean visibility) {
         if(visibility){
             btSolicitacoes.setVisibility(View.VISIBLE);
         }
