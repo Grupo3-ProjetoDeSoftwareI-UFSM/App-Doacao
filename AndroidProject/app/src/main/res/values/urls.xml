@@ -12,4 +12,5 @@
     <string name="listSolicitacoesURL">http://www.appdoacao.esy.es/solicitacoesList.php</string>
     <string name="chatURL">http://www.appdoacao.esy.es/getChat.php</string>
     <string name="mensagemURL">http://www.appdoacao.esy.es/postMensagem.php</string>
+    <string name="avaliacaoURL">http://www.appdoacao.esy.es/postAvaliacao.php</string>
 </resources>

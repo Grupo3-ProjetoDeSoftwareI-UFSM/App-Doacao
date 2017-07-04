@@ -198,6 +198,7 @@ public class NewDonationActivity extends AppCompatActivity
         i.putExtra("intent", DonationActivity.IDOADOR);
         i.putExtra("doacaoId", pid);
         startActivity(i);
+        finish();
     }
 
     /**

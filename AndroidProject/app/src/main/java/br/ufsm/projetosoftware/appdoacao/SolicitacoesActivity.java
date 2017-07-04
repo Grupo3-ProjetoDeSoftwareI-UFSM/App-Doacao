@@ -56,6 +56,7 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
         Solicitacao solicitacao = listaSolicitacao.get(id);
         Intent toChat = new Intent(SolicitacoesActivity.this, ChatActivity.class);
         toChat.putExtra("idSolicitacao", solicitacao.getSid());
+        toChat.putExtra("intent", ChatActivity.IDOADOR);
         startActivity(toChat);
     }
 

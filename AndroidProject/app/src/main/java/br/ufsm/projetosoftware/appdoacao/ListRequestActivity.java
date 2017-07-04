@@ -58,16 +58,20 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
     public void onSelectList(int id) {
         Produto produto = listaProduto.get(id);
         if(produto != null){
-            Intent toDonationActivity = new Intent(ListRequestActivity.this, DonationActivity.class);
-            toDonationActivity.putExtra("Titulo", produto.getTitulo());
-            toDonationActivity.putExtra("Categoria", produto.getTipoCategoria());
-            toDonationActivity.putExtra("Descricao", produto.getDescricao());
-            toDonationActivity.putExtra("ImageId", produto.getImageId());
-            toDonationActivity.putExtra("DoacaoId", produto.getPid());
-            toDonationActivity.putExtra("idSolicitacao", produto.getSid());
-            toDonationActivity.putExtra("intent", DonationActivity.IVISUALIZA);
-            startActivity(toDonationActivity);
-
+            if(produto.getStatus() == StatusEnum.STATUS1.toString()){
+                Intent toDonationActivity = new Intent(ListRequestActivity.this, DonationActivity.class);
+                toDonationActivity.putExtra("Titulo", produto.getTitulo());
+                toDonationActivity.putExtra("Categoria", produto.getTipoCategoria());
+                toDonationActivity.putExtra("Descricao", produto.getDescricao());
+                toDonationActivity.putExtra("ImageId", produto.getImageId());
+                toDonationActivity.putExtra("DoacaoId", produto.getPid());
+                toDonationActivity.putExtra("idSolicitacao", produto.getSid());
+                toDonationActivity.putExtra("intent", DonationActivity.IVISUALIZA);
+                startActivity(toDonationActivity);
+            }
+            else{
+                //TODO avaliacao
+            }
         }
 
     }

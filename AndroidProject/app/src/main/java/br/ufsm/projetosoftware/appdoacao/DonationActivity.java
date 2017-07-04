@@ -168,6 +168,7 @@ public class DonationActivity extends AppCompatActivity
                 Toast.makeText(DonationActivity.this, "Doacao cancelada com sucesso.",Toast.LENGTH_LONG).show();
                 Intent toListDonation= new Intent(DonationActivity.this, ListDonationActivity.class);
                 startActivity(toListDonation);
+                finish();
                 break;
             case 1:
                 Toast.makeText(DonationActivity.this, "Erro no cancelamento.",Toast.LENGTH_LONG).show();
@@ -239,6 +240,7 @@ public class DonationActivity extends AppCompatActivity
         if(intent == IVISUALIZA){
             Intent toChat = new Intent(DonationActivity.this, ChatActivity.class);
             toChat.putExtra("idSolicitacao", idSolicitacao);
+            toChat.putExtra("intent", ChatActivity.ISOLICITANTE);
             startActivity(toChat);
         }
     }

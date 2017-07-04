@@ -114,5 +114,6 @@ public class RequestActivity
     private void toListRequest(){
         Intent toListRequest = new Intent(RequestActivity.this, ListRequestActivity.class);
         startActivity(toListRequest);
+        finish();
     }
 }

@@ -131,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView.
         if(registerResponse.getSuccess() == 1) {
             Intent i = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(i);
+            finish();
         }
     }
     /**
