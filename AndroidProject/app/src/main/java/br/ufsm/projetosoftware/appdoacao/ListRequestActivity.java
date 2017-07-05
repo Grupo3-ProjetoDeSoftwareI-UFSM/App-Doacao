@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -22,11 +21,12 @@ import br.ufsm.projetosoftware.appdoacao.network.IResultString;
 import br.ufsm.projetosoftware.appdoacao.network.ListPost;
 import br.ufsm.projetosoftware.appdoacao.network.SearchResponse;
 import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
-import br.ufsm.projetosoftware.appdoacao.view.ListDonationView;
-import br.ufsm.projetosoftware.appdoacao.view.ListDonationViewImpl;
 import br.ufsm.projetosoftware.appdoacao.view.ListRequestView;
 import br.ufsm.projetosoftware.appdoacao.view.ListRequestViewImpl;
 
+/**
+ * Activity da tela de lista de solicitações de um usuário
+ */
 public class ListRequestActivity extends AppCompatActivity implements ListRequestView.SelectListListener {
 
     private ListRequestView listRequestView;
@@ -51,9 +51,13 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
         loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         authToken = loginSettings.getString("authToken", null);
         uid = loginSettings.getInt("uid", 0);
-        getDonationList();
+        getRequestList();
     }
 
+    /**
+     * Abre tela de visualização de uma doação solicitada ou chat conforme status da doação
+     * @param id
+     */
     @Override
     public void onSelectList(int id) {
         Produto produto = listaProduto.get(id);
@@ -79,7 +83,10 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
 
     }
 
-    private void getDonationList(){
+    /**
+     * Solicita lista de solicitações ao servidor
+     */
+    private void getRequestList(){
         ListPost listPost = new ListPost();
         listPost.setUid(uid);
         listPost.setAuthToken(authToken);
@@ -88,6 +95,10 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
         volleyService.postDataVolley(POSTLIST, listURL, listPostJson);
     }
 
+    /**
+     * Carrega lista retornada pelo servidor no ListView
+     * @param response
+     */
     private void postListSucess(String response){
         Log.d("postListsucess", response);
         SearchResponse searchResponse = new Gson().fromJson(response, SearchResponse.class);
@@ -102,6 +113,9 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
         }
     }
 
+    /**
+     * Recebe resposta de sucesso ou falha na conexão ao servidor
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
             @Override

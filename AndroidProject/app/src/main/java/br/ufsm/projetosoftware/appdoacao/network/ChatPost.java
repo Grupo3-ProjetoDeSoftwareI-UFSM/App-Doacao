@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Solicitação de mensagem de um chat ao servidor
  */
 
 public class ChatPost {

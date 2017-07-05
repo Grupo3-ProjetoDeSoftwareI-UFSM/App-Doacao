@@ -8,7 +8,8 @@ import br.ufsm.projetosoftware.appdoacao.models.Avaliacao;
 import br.ufsm.projetosoftware.appdoacao.models.Solicitacao;
 
 /**
- * Created by Felipe on 04/07/2017.
+ * Resposta do servidor ao buscar avaliações
+ *
  */
 
 public class AvaliacoesResponse {

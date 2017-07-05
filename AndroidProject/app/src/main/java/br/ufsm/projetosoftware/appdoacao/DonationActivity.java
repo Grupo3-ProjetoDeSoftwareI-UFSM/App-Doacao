@@ -22,7 +22,7 @@ import br.ufsm.projetosoftware.appdoacao.view.DonationView;
 import br.ufsm.projetosoftware.appdoacao.view.DonationViewImpl;
 
 /**
- * View de visualização do produto
+ * Activity da tela de visualização do produto
  * Created on 17/06/2017.
  */
 
@@ -230,6 +230,9 @@ public class DonationActivity extends AppCompatActivity
         };
     }
 
+    /**
+     * Inicia activity de solicitacoes ao apertar no botão
+     */
     @Override
     public void onSolicitacoesClick() {
         if(intent == IDOADOR) {

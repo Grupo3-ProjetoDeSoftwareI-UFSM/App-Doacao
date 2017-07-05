@@ -8,7 +8,7 @@ import br.ufsm.projetosoftware.appdoacao.models.Produto;
 import br.ufsm.projetosoftware.appdoacao.models.Solicitacao;
 
 /**
- * Created by Felipe on 01/07/2017.
+ * Solicitações de uma doação retornadas pelo servidor
  */
 
 public class SolicitacoesResponse {

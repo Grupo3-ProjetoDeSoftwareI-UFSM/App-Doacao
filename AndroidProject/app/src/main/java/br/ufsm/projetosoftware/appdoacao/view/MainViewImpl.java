@@ -7,7 +7,7 @@ import android.widget.Button;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 20/05/2017.
+ * Implementação da interface da tela principal com opções do aplicativo
  */
 
 public class MainViewImpl implements MainView {
@@ -17,10 +17,12 @@ public class MainViewImpl implements MainView {
     private Button btSearchDonation;
     private Button btListDonation;
     private Button btListRequest;
+    private Button btSair;
     private NewDonationButtonListener newDonationButtonListener;
     private SearchDonationButtonListener searchDonationButtonListener;
     private ListDonationButtonListener listDonationButtonListener;
     private ListRequestButtonListener listRequestButtonListener;
+    private SairButtonListener sairButtonListener;
 
     public MainViewImpl(View view){
         rootView = view;
@@ -57,6 +59,14 @@ public class MainViewImpl implements MainView {
                 }
             }
         });
+        btSair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sairButtonListener != null){
+                    sairButtonListener.onSairClick();
+                }
+            }
+        });
     }
 
     private void initialize(){
@@ -64,6 +74,7 @@ public class MainViewImpl implements MainView {
         btSearchDonation = (Button) rootView.findViewById(R.id.btSearchDonation);
         btListDonation = (Button) rootView.findViewById(R.id.btListDonation);
         btListRequest = (Button) rootView.findViewById(R.id.btListRequest);
+        btSair = (Button) rootView.findViewById(R.id.btSair);
     }
 
     @Override
@@ -76,23 +87,48 @@ public class MainViewImpl implements MainView {
         return null;
     }
 
+    /**
+     * Configura listener do botao de nova doação
+     * @param listener
+     */
     @Override
     public void setNewDonationListener(NewDonationButtonListener listener) {
         newDonationButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de busca de doação
+     * @param listener
+     */
     @Override
     public void setSearchDonationListener(SearchDonationButtonListener listener) {
         searchDonationButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de lista de doações
+     * @param listener
+     */
     @Override
     public void setListDonationListener(ListDonationButtonListener listener) {
         listDonationButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de lista de solicitações
+     * @param listener
+     */
     @Override
     public void setListRequestListener(ListRequestButtonListener listener) {
         listRequestButtonListener = listener;
+    }
+
+    /**
+     * Configura listener do botão de sair
+     * @param listener
+     */
+    @Override
+    public void setSairListener(SairButtonListener listener) {
+        sairButtonListener = listener;
     }
 }

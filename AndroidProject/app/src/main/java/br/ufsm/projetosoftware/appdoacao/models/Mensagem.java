@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Classe com dados de uma mensagem do Chat
  */
 
 public class Mensagem {

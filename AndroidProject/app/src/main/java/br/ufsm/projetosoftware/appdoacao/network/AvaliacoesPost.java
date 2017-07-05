@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 04/07/2017.
+ * Dados enviados para servidor ao buscar lista de avaliações de um usuário.
  */
 
 public class AvaliacoesPost {

@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Tipos para a Activity da Busca
+ * Tipos de produto para a Activity da Busca
  * Created on 24/06/2017.
  */
 

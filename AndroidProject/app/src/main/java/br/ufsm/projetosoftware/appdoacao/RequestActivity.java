@@ -19,6 +19,9 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.RequestView;
 import br.ufsm.projetosoftware.appdoacao.view.RequestViewImpl;
 
+/**
+ * Activity da tela de solicitação de doação
+ */
 public class RequestActivity
         extends AppCompatActivity
         implements RequestView.SolicitarButtonListener {
@@ -52,6 +55,9 @@ public class RequestActivity
         requestView.setTitulo(extras.getString("Titulo"));
     }
 
+    /**
+     * Ao apertar no botão de solicitar envia dados para o servidor
+     */
     @Override
     public void onSolicitarButton() {
         doacaoId = extras.getInt("doacaoId");
@@ -65,6 +71,10 @@ public class RequestActivity
         volleyService.postDataVolley(POSTSOLICITACAO, SOLICITACAO_URL, requestPostJson);
     }
 
+    /**
+     * Exibe resposta do cadastro de solicitação ao usuário
+     * @param response
+     */
     private void postSolicitacaoSucess(String response){
         Log.d("solicitacaoResponse", response);
         RequestResult requestResult = new Gson().fromJson(response, RequestResult.class);
@@ -111,6 +121,9 @@ public class RequestActivity
         };
     }
 
+    /**
+     * Inicia activity de lista de solicitações
+     */
     private void toListRequest(){
         Intent toListRequest = new Intent(RequestActivity.this, ListRequestActivity.class);
         startActivity(toListRequest);

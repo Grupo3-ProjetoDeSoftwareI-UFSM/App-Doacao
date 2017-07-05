@@ -25,6 +25,9 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.ListDonationView;
 import br.ufsm.projetosoftware.appdoacao.view.ListDonationViewImpl;
 
+/**
+ * Activity da tela de listar doações do usuário
+ */
 public class ListDonationActivity extends AppCompatActivity
         implements ListDonationView.SelectSpinnerListener, ListDonationView.SelectListListener{
 
@@ -55,11 +58,19 @@ public class ListDonationActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Executa método de exibir doações conforme status selecionado no spinner
+     * @param pos
+     */
     @Override
     public void onSelectSpinner(int pos) {
         getDonationList(listDonationView.getStatus());
     }
 
+    /**
+     * Inicia activity de visualização de doação ao apertar em um item da lista
+     * @param id
+     */
     @Override
     public void onSelectList(int id) {
         Log.d("IdfromLista", String.valueOf(id));
@@ -78,6 +89,10 @@ public class ListDonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Solicita lista de doações ao servidor
+     * @param status
+     */
     private void getDonationList(String status){
         ListPost listPost = new ListPost();
         listPost.setUid(uid);
@@ -88,6 +103,10 @@ public class ListDonationActivity extends AppCompatActivity
         volleyService.postDataVolley(POSTLIST, listURL, listPostJson);
     }
 
+    /**
+     * Carrega dados no listView quando retornado pelo servidor
+     * @param response
+     */
     private void postListSucess(String response){
         Log.d("postListsucess", response);
         SearchResponse searchResponse = new Gson().fromJson(response, SearchResponse.class);
@@ -102,6 +121,9 @@ public class ListDonationActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Recebe resposta do servidor
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
             @Override

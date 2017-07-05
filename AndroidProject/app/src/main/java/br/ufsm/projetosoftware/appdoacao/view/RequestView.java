@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 /**
- * Created by Felipe on 29/06/2017.
+ * Interface da tela de solicitação de doação
  */
 
 public interface RequestView {

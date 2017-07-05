@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 /**
- * Created by Felipe on 14/05/2017.
+ * Interface da tela de cadastro de usuário
  */
 
 public interface RegisterView extends ViewMvc{

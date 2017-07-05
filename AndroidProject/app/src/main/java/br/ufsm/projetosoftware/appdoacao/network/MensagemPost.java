@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Classe com dados de uma mensagem para envio ao servidor
  */
 
 public class MensagemPost {

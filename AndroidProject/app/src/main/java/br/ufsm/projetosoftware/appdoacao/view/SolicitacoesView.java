@@ -3,7 +3,7 @@ package br.ufsm.projetosoftware.appdoacao.view;
 import android.widget.ListAdapter;
 
 /**
- * Created by Felipe on 01/07/2017.
+ * Interface da tela de solicitações de uma doação
  */
 
 public interface SolicitacoesView {

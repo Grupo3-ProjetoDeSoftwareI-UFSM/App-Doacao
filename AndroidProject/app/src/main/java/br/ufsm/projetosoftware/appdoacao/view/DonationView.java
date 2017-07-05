@@ -3,7 +3,7 @@ package br.ufsm.projetosoftware.appdoacao.view;
 import android.graphics.Bitmap;
 
 /**
- * Created by Felipe on 17/06/2017.
+ * Interface da tela de visualização de doação
  */
 
 public interface DonationView extends ViewMvc{

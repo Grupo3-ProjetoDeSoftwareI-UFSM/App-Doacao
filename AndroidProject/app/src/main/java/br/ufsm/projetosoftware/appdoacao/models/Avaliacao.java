@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 03/07/2017.
+ * Classe com dados de uma avaliação de usuário
  */
 
 public class Avaliacao {

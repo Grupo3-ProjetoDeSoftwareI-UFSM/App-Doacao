@@ -5,7 +5,7 @@ import java.util.List;
 import br.ufsm.projetosoftware.appdoacao.models.Mensagem;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Resposta do servidor ao buscar mensagens de um chat
  */
 
 public class ChatResponse {

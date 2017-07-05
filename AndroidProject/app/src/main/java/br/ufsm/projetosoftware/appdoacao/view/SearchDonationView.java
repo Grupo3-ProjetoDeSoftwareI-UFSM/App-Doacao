@@ -4,7 +4,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
 /**
- * Created by Felipe on 22/06/2017.
+ * Interface da tela de busca de doações
  */
 
 public interface SearchDonationView extends ViewMvc{

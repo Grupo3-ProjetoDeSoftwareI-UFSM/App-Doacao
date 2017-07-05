@@ -34,6 +34,10 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
     private SharedPreferences loginSettings;
     private Bundle extras;
 
+    /**
+     * Inicializa activity ao ser contruída
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

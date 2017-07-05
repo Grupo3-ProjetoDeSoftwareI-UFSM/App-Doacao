@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 03/07/2017.
+ * Resposta do servidor ao cadastrar uma avaliação
  */
 
 public class AvaliacaoResponse {

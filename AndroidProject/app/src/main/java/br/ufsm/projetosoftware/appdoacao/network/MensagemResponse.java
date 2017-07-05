@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Resposta do servidor ao enviar uma mensagem no chat
  */
 
 public class MensagemResponse {

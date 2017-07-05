@@ -8,7 +8,7 @@ import android.widget.TextView;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 29/06/2017.
+ * Implementação da interface da tela de solicitação
  */
 
 public class RequestViewImpl implements RequestView{
@@ -38,16 +38,28 @@ public class RequestViewImpl implements RequestView{
         btSolicitar = (Button) rootView.findViewById(R.id.btConfirmaSolicitacao);
     }
 
+    /**
+     * Configura listener do botão de solicitar
+     * @param listener
+     */
     @Override
     public void setSolicitarButtonListener(SolicitarButtonListener listener) {
         solicitarButtonListener = listener;
     }
 
+    /**
+     * Exibe titulo
+     * @param titulo
+     */
     @Override
     public void setTitulo(String titulo) {
         tvTitulo.setText(titulo);
     }
 
+    /**
+     * Retorna justificativa
+     * @return justificativa
+     */
     @Override
     public String getJustificativa() {
         return etJustificativa.getText().toString();

@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 /**
- * Created by Felipe on 04/07/2017.
+ * Interface da tela de opções de solicitação
  */
 
 public interface OpcoesSolicitacaoView {

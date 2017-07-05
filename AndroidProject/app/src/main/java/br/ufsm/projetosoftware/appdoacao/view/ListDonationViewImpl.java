@@ -10,7 +10,7 @@ import android.widget.Spinner;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 27/06/2017.
+ * Implementação da interface da tela de lista de doações
  */
 
 public class ListDonationViewImpl implements ListDonationView{
@@ -53,26 +53,46 @@ public class ListDonationViewImpl implements ListDonationView{
         lvDoacoes = (ListView) rootView.findViewById(R.id.lvDoacoes);
     }
 
+    /**
+     * Retorna status selecionado no spinner
+     * @return
+     */
     @Override
     public String getStatus() {
         return spStatus.getSelectedItem().toString();
     }
 
+    /**
+     * Configura opções do spinner de status
+     * @param adapter
+     */
     @Override
     public void setSpinnerStatus(ArrayAdapter adapter) {
         spStatus.setAdapter(adapter);
     }
 
+    /**
+     * Configura listener do spinner de status
+     * @param listener
+     */
     @Override
     public void setSelectSpinnerListener(SelectSpinnerListener listener) {
         selectSpinnerListener = listener;
     }
 
+    /**
+     * Configura listener da lista de doações
+     * @param listener
+     */
     @Override
     public void setSelectListListener(SelectListListener listener) {
         selectListListener = listener;
     }
 
+    /**
+     * Configura adapter na lista para exibição dos dados
+     * @param adapter
+     */
     @Override
     public void setListAdapter(ListAdapter adapter) {
         lvDoacoes.setAdapter(adapter);

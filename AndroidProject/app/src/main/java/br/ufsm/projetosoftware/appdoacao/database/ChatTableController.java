@@ -10,7 +10,7 @@ import java.util.List;
 import br.ufsm.projetosoftware.appdoacao.models.Mensagem;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Controla tabela de chat no banco de dados SQLite
  */
 
 public class ChatTableController {
@@ -21,6 +21,15 @@ public class ChatTableController {
         database = new CreateDatabase(context);
     }
 
+    /**
+     * Insere um novo registro na tabela chat
+     * @param mid
+     * @param idSolicitacao
+     * @param idRemetente
+     * @param nome
+     * @param mensagem
+     * @return
+     */
     public boolean insertValues(int mid, int idSolicitacao, int idRemetente, String nome, String mensagem){
         ContentValues values;
         long result;
@@ -43,6 +52,10 @@ public class ChatTableController {
         }
     }
 
+    /**
+     * Insere elementos de uma lista de mensagens na tabela chat
+     * @param mensagemList
+     */
     public void insertFromList(List<Mensagem> mensagemList){
         if(mensagemList!= null) {
             for (Mensagem m : mensagemList) {
@@ -51,6 +64,11 @@ public class ChatTableController {
         }
     }
 
+    /**
+     * Busca entradas de chat relacionadas a uma solicitação
+     * @param idSolicitacao
+     * @return Cursor com entradas encontradas
+     */
     public Cursor getValues(int idSolicitacao){
         Cursor cursor;
         String[] columns = {CreateDatabase.ID, CreateDatabase.CHAT_REMETENTE_NOME, CreateDatabase.CHAT_MENSAGEM};
@@ -65,6 +83,11 @@ public class ChatTableController {
         return cursor;
     }
 
+    /**
+     * Busca o id da ultima mensagem relacionada a uma solicitação
+     * @param idSolicitacao
+     * @return Integer com id da ultima mensagem
+     */
     public Integer getLastMessageId(int idSolicitacao){
         Cursor cursor;
         String[] columns = {CreateDatabase.ID, CreateDatabase.CHAT_ID};

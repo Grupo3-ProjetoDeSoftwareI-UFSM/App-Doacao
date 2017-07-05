@@ -4,7 +4,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 
 /**
- * Created by Felipe on 27/06/2017.
+ * Interface da tela de lsita de doações
  */
 
 public interface ListDonationView {

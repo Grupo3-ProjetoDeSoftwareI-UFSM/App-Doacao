@@ -8,7 +8,7 @@ import android.widget.RatingBar;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 03/07/2017.
+ * Implementação da interface da tela de avaliaçao
  */
 
 public class AvaliacaoViewImpl implements AvaliacaoView{
@@ -38,16 +38,28 @@ public class AvaliacaoViewImpl implements AvaliacaoView{
         btConfirmar = (Button) rootView.findViewById(R.id.btConfirmaAvaliacao);
     }
 
+    /**
+     * Configura listener do botão de confirmar
+     * @param listener
+     */
     @Override
     public void setConfirmarButtonListener(ConfirmarButtonListener listener) {
         confirmarButtonListener = listener;
     }
 
+    /**
+     * Retorna valor da avaliação
+     * @return Float avaliação
+     */
     @Override
     public float getAvaliacao() {
         return rbAvaliacao.getRating();
     }
 
+    /**
+     * Retorna comentário digitado pelo usuário
+     * @return String comentário
+     */
     @Override
     public String getComentario() {
         return etComentario.getText().toString();

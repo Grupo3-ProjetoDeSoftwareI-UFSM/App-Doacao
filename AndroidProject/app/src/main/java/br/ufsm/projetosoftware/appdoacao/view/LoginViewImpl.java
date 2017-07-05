@@ -16,7 +16,7 @@ import android.widget.TextView;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 13/05/2017.
+ * Implementação da interface da tela de login
  */
 
 public class LoginViewImpl implements LoginView {

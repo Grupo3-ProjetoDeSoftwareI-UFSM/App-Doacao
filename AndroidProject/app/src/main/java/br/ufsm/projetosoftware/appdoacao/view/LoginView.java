@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 /**
- * Created by Felipe on 13/05/2017.
+ * Interface da tela de login
  */
 
 public interface LoginView extends ViewMvc {

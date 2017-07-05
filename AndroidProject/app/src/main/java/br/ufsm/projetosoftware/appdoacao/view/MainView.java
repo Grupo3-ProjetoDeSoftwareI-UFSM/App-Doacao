@@ -1,7 +1,8 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 /**
- * Created by Felipe on 20/05/2017.
+ *
+ * Interface da tela principal com opções do aplicativo
  */
 
 public interface MainView extends ViewMvc {
@@ -21,6 +22,10 @@ public interface MainView extends ViewMvc {
         void onListRequestClick();
     }
 
+    interface SairButtonListener{
+        void onSairClick();
+    }
+
     void setNewDonationListener(NewDonationButtonListener listener);
 
     void setSearchDonationListener(SearchDonationButtonListener listener);
@@ -28,5 +33,7 @@ public interface MainView extends ViewMvc {
     void setListDonationListener(ListDonationButtonListener listener);
 
     void setListRequestListener(ListRequestButtonListener listener);
+
+    void setSairListener(SairButtonListener listener);
 
 }

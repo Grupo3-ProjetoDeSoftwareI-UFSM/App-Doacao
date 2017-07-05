@@ -28,7 +28,10 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.ChatView;
 import br.ufsm.projetosoftware.appdoacao.view.ChatViewImpl;
 
-public class ChatActivity extends AppCompatActivity implements ChatView.SendButtonListener, ChatView.DoarButtonListener{
+/**
+ * Activity da tela de chat
+ */
+public class ChatActivity extends AppCompatActivity implements ChatView.SendButtonListener{
 
     private ChatView chatView;
     private ChatTableController chatTableController;
@@ -67,6 +70,12 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         refreshChat();
     }
 
+    /**
+     * Finaliza busca de novas mensagens no servidor quando usuário sair do chat
+     * @param keyCode
+     * @param event
+     * @return
+     */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
@@ -79,12 +88,18 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * Inicializa atributos da classe
+     */
     private void initialize() {
         extras = getIntent().getExtras();
         idSolicitacao = extras.getInt("idSolicitacao");
         intent = extras.getInt("intent");
     }
 
+    /**
+     * Exibe mensagens de um chat no ListView da tela de chat
+     */
     private void setChatAdapter(){
         Log.d("idSolicitacao", String.valueOf(idSolicitacao));
         Cursor cursor = chatTableController.getValues(idSolicitacao);
@@ -94,6 +109,9 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         chatView.setChatAdapter(adapter);
     }
 
+    /**
+     * Ao pressionar o botão enviar mensagem, envia dados ao servidor
+     */
     @Override
     public void onSendButtonClick() {
         MensagemPost mensagemPost = new MensagemPost();
@@ -104,10 +122,18 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         volleyService.postDataVolley(POSTCHAT, mensagemURL, chatPostString);
     }
 
+    /**
+     * Recebe resposta de sucesso de cadastro de mensagem
+     * @param response
+     */
     private void postMensagemSuccess(String response){
         //MensagemResponse mensagemResponse = new Gson().fromJson(response, MensagemResponse.class);
     }
 
+    /**
+     * Insere mensagens de chat retornadas do servidor no banco de dados SQLite
+     * @param response
+     */
     private void postChatSucess(String response){
         if(response != null){
             //System.out.println(response);
@@ -121,6 +147,9 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         }
     }
 
+    /**
+     * Recebe resposta sucesso ou falha na conexão com o servidor
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
             @Override
@@ -142,6 +171,9 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         };
     }
 
+    /**
+     * Solicita mensagens de chat ao servidor
+     */
     private void getChat(){
         int lastMessageId = chatTableController.getLastMessageId(idSolicitacao);
         ChatPost chatPost = new ChatPost();
@@ -151,6 +183,9 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         volleyService.postDataVolley(POSTCHAT, chatURL, chatPostString);
     }
 
+    /**
+     * Inicia handler na thread principal utilizado pela timerTask para atualizar a interface
+     */
     private void startHandler(){
         refreshChatHandler = new Handler(){
             public void handleMessage(Message msg){
@@ -159,6 +194,10 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         };
     }
 
+    /**
+     * Iniciar timerTask responsável por atualizar o chat
+     * Intervalo de tempo entre cada atualização de 1 segundo
+     */
     private void refreshChat(){
         //Handler handler = new Handler();
         /*handler.postDelayed(new Runnable() {
@@ -177,8 +216,4 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         timer.schedule(timerTask, 1, 1000);
     }
 
-    @Override
-    public void onDoarButtonClick() {
-        //TODO avaliacao
-    }
 }

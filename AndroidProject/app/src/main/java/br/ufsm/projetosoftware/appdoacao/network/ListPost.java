@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.network;
 
 /**
- * Created by Felipe on 27/06/2017.
+ * Classe com dados para solicitação ao servidor de lista de doações
  */
 
 public class ListPost {

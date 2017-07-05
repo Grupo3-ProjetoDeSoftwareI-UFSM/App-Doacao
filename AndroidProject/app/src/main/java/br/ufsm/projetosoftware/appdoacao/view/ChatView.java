@@ -3,7 +3,7 @@ package br.ufsm.projetosoftware.appdoacao.view;
 import android.widget.ListAdapter;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Interface da tela de chat
  */
 
 public interface ChatView {
@@ -19,10 +19,6 @@ public interface ChatView {
     String getMessage();
 
     void setSendButtonListener(SendButtonListener listener);
-
-    void setDoarButtonListener(DoarButtonListener listener);
-
-    void setDoarButtonVisible();
 
     void setChatAdapter(ListAdapter adapter);
 

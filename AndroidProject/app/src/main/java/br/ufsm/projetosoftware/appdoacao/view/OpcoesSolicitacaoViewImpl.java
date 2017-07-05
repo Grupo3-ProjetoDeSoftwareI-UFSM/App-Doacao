@@ -6,7 +6,7 @@ import android.widget.Button;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 04/07/2017.
+ * Implementação da interface da tela de opções da solicitação
  */
 
 public class OpcoesSolicitacaoViewImpl implements OpcoesSolicitacaoView{
@@ -54,16 +54,28 @@ public class OpcoesSolicitacaoViewImpl implements OpcoesSolicitacaoView{
         btConcluiDoacao = (Button) rootView.findViewById(R.id.btConcluiDoacao);
     }
 
+    /**
+     * Configura listener do botão de avaliações
+     * @param listener
+     */
     @Override
     public void setAvaliacoesListener(AvaliacoesButtonListener listener) {
         avaliacoesButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de iniciar chat
+     * @param listener
+     */
     @Override
     public void setChatListener(ChatButtonListener listener) {
         chatButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de concluir doação
+     * @param listener
+     */
     @Override
     public void setConcluiDoacaoListener(ConcluiDoacaoButtonListener listener) {
         concluiDoacaoButtonListener = listener;

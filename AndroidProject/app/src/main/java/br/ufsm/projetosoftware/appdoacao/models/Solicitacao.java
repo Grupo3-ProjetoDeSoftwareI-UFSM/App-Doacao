@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.models;
 
 /**
- * Created by Felipe on 01/07/2017.
+ * Solicitação de doação
  */
 
 public class Solicitacao {

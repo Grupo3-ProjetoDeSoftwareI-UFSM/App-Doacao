@@ -4,7 +4,7 @@ import android.widget.ListAdapter;
 import android.widget.RatingBar;
 
 /**
- * Created by Felipe on 04/07/2017.
+ * Interface da tela de lista de avaliações
  */
 
 public interface ListAvaliacoesView {

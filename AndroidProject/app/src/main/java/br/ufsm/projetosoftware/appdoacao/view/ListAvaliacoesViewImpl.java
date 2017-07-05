@@ -8,7 +8,7 @@ import android.widget.RatingBar;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 04/07/2017.
+ * Implementação da interface da tela de lista de avaliações
  */
 
 public class ListAvaliacoesViewImpl implements ListAvaliacoesView{
@@ -25,11 +25,19 @@ public class ListAvaliacoesViewImpl implements ListAvaliacoesView{
         lvAvaliacoes = (ListView) rootView.findViewById(R.id.lvAvaliacoes);
     }
 
+    /**
+     * Configura adapter na listView para exibição dos dados
+     * @param adapter
+     */
     @Override
     public void setListAdapter(ListAdapter adapter) {
         lvAvaliacoes.setAdapter(adapter);
     }
 
+    /**
+     * Retorna view RatingBar
+     * @return
+     */
     @Override
     public RatingBar getRatingBar() {
         return (RatingBar)rootView.findViewById(R.id.rbListAvaliacao);

@@ -3,7 +3,7 @@ package br.ufsm.projetosoftware.appdoacao.view;
 import android.widget.ListAdapter;
 
 /**
- * Created by Felipe on 30/06/2017.
+ * Interface da tela de lista de solicitações
  */
 
 public interface ListRequestView {

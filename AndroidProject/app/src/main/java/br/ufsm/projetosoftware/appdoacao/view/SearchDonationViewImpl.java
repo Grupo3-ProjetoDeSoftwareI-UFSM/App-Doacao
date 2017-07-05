@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 22/06/2017.
+ * Implementação da interface da tela de busca de doação
  */
 
 public class SearchDonationViewImpl implements SearchDonationView{
@@ -75,6 +75,10 @@ public class SearchDonationViewImpl implements SearchDonationView{
 
     }
 
+    /**
+     * Retorna tipo selecionado
+     * @return
+     */
     @Override
     public String getTipo() {
         if(spTipo.getSelectedItemId() == 0)
@@ -83,6 +87,10 @@ public class SearchDonationViewImpl implements SearchDonationView{
             return spTipo.getSelectedItem().toString();
     }
 
+    /**
+     * Retorna categoria selecionada
+     * @return
+     */
     @Override
     public String getCategoria() {
         if(spCategoria.isEnabled() == false || spCategoria.getSelectedItemId() == 0)
@@ -91,6 +99,10 @@ public class SearchDonationViewImpl implements SearchDonationView{
             return spCategoria.getSelectedItem().toString();
     }
 
+    /**
+     * Retorna busca digitada no campo
+     * @return
+     */
     @Override
     public String getBusca() {
         if(etBusca.getText().length() > 0)
@@ -100,31 +112,55 @@ public class SearchDonationViewImpl implements SearchDonationView{
         }
     }
 
+    /**
+     * Configura listener do botão de busca
+     * @param listener
+     */
     @Override
     public void setBuscaListener(BuscaListener listener) {
         buscaListener = listener;
     }
 
+    /**
+     * Configura listener da lista de resultados
+     * @param listener
+     */
     @Override
     public void setListListener(ListListener listener) {
         listListener = listener;
     }
 
+    /**
+     * Configura adapter para exibir dados no listView
+     * @param adapter
+     */
     @Override
     public void setListAdapter(ListAdapter adapter) {
         listBusca.setAdapter(adapter);
     }
 
+    /**
+     * Configura listener do spinner de tipo de produto
+     * @param listener
+     */
     @Override
     public void setSelectTipoListener(SelectTipoListener listener) {
         selectTipoListener = listener;
     }
 
+    /**
+     * Configura valores no spinner de tipo
+     * @param adapter
+     */
     @Override
     public void setTipoValues(ArrayAdapter adapter) {
         spTipo.setAdapter(adapter);
     }
 
+    /**
+     * Configura valores no spinner de categoria
+     * @param adapter
+     */
     @Override
     public void setCategoriaValues(ArrayAdapter adapter) {
         spCategoria.setAdapter(adapter);

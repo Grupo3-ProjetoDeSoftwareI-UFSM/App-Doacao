@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Felipe on 02/07/2017.
+ * Cria banco de dados SQLite e suas tabelas
  */
 
 public class CreateDatabase extends SQLiteOpenHelper {
@@ -22,10 +22,18 @@ public class CreateDatabase extends SQLiteOpenHelper {
     public static final String CHAT_REMETENTE_NOME = "nomeRemetente";
     public static final String CHAT_MENSAGEM = "mensagem";
 
+    /**
+     * Construtor da classe CreateDatabase
+     * @param context
+     */
     public CreateDatabase(Context context) {
         super(context, DATABASE_NAME, null, VERSION);
     }
 
+    /**
+     * Constroi tabelas quando banco for criado
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         String sqlCreateChat = "CREATE TABLE " + TABLE_CHAT + " ("
@@ -41,6 +49,12 @@ public class CreateDatabase extends SQLiteOpenHelper {
         db.execSQL(sqlCreateChat);
     }
 
+    /**
+     * Apaga tabela antiga quando uma nova versão for criada
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String sqlDropChat = "DROP TABLE IF EXISTS " + TABLE_CHAT;

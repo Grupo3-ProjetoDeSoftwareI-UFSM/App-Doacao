@@ -8,7 +8,7 @@ import android.widget.ListView;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 01/07/2017.
+ * Implementação da interface da tela de lista de solicitações de uma doação
  */
 
 public class SolicitacoesViewImpl implements SolicitacoesView {
@@ -35,11 +35,19 @@ public class SolicitacoesViewImpl implements SolicitacoesView {
     }
 
 
+    /**
+     * Configura listener da lista de solicitações
+     * @param listener
+     */
     @Override
     public void setSolicitacaoListListener(SolicitacaoListClick listener) {
         solicitacaoListClick = listener;
     }
 
+    /**
+     * Configura adapter para exibir dados na listView
+     * @param adapter
+     */
     @Override
     public void setListAdapter(ListAdapter adapter) {
         lvSolicitantes.setAdapter(adapter);

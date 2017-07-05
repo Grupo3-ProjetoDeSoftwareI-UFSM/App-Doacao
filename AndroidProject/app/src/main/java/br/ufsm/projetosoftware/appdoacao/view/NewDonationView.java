@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.widget.ArrayAdapter;
 
 /**
- * Created by Felipe on 20/05/2017.
+ * Interface da tela de cadastro de doação
  */
 
 public interface NewDonationView extends ViewMvc{

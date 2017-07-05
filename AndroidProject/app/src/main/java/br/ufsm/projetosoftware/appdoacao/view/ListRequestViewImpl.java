@@ -8,7 +8,7 @@ import android.widget.ListView;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 30/06/2017.
+ * Implementação da interface da tela de lista de solicitações
  */
 
 public class ListRequestViewImpl implements ListRequestView{
@@ -34,11 +34,19 @@ public class ListRequestViewImpl implements ListRequestView{
         lvSolicitacoes = (ListView) rootView.findViewById(R.id.lvSolicitacoes);
     }
 
+    /**
+     * Configura listener da lista
+     * @param listener
+     */
     @Override
     public void setSelectListListener(SelectListListener listener) {
         selectListListener = listener;
     }
 
+    /**
+     * Configura adapter da lista para exibir dados
+     * @param adapter
+     */
     @Override
     public void setListAdapter(ListAdapter adapter) {
         lvSolicitacoes.setAdapter(adapter);

@@ -13,7 +13,7 @@ import android.widget.Spinner;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 20/05/2017.
+ * Implementação da interface da tela de nova doação
  */
 
 public class NewDonationViewImpl implements NewDonationView {
@@ -85,57 +85,101 @@ public class NewDonationViewImpl implements NewDonationView {
         return null;
     }
 
+    /**
+     * Retorna tipo selecionado no spinner
+     * @return String tipo
+     */
     @Override
     public String getTipo() {
         return spTipo.getSelectedItem().toString();
     }
 
+    /**
+     * Retorna categoria selecionada no spinner
+     * @return String categoria
+     */
     @Override
     public String getCategoria() {
         return spCategoria.getSelectedItem().toString();
     }
 
+    /**
+     * Retorna titulo
+     * @return String titulo
+     */
     @Override
     public String getTitulo() {
         return etTitulo.getText().toString();
     }
 
+    /**
+     * Retorna descrição
+     * @return String descrição
+     */
     @Override
     public String getDescricao() {
         return etDescricao.getText().toString();
     }
 
+    /**
+     * Retorna imagem do imageview
+     * @return
+     */
     @Override
     public Bitmap getImage() {
         return null;
     }
 
+    /**
+     * Exibi imagem no imageView
+     * @param image
+     */
     @Override
     public void setImage(Bitmap image) {
         ivImage.setImageBitmap(image);
         ivImage.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Configura listener do botão de escolher imagem
+     * @param listener
+     */
     @Override
     public void setSelectImageListener(SelectImageListener listener) {
         selectImageListener = listener;
     }
 
+    /**
+     * Configura listener do botão de cadastro de doação
+     * @param listener
+     */
     @Override
     public void setRegisterDonationListener(RegisterDonationListener listener) {
         registerDonationListener = listener;
     }
 
+    /**
+     * Configura listener do spinner de tipo
+     * @param listener
+     */
     @Override
     public void setSelectTipoListener(SelectTipoListener listener) {
         selectTipoListener = listener;
     }
 
+    /**
+     * Configura valores do spinner de tipo
+     * @param adapter
+     */
     @Override
     public void setTipoValues(ArrayAdapter adapter) {
         spTipo.setAdapter(adapter);
     }
 
+    /**
+     * Configura valores do spinner de categoria
+     * @param adapter
+     */
     @Override
     public void setCategoriaValues(ArrayAdapter adapter) {
         spCategoria.setAdapter(adapter);

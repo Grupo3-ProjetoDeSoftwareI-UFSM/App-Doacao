@@ -1,7 +1,7 @@
 package br.ufsm.projetosoftware.appdoacao.view;
 
 /**
- * Created by Felipe on 03/07/2017.
+ * Interface da tela de avaliação
  */
 
 public interface AvaliacaoView {

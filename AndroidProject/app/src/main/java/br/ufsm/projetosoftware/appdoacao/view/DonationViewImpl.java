@@ -11,7 +11,7 @@ import android.widget.TextView;
 import br.ufsm.projetosoftware.appdoacao.R;
 
 /**
- * Created by Felipe on 17/06/2017.
+ * Implementação da interface da tela de visualização de doação
  */
 
 public class DonationViewImpl implements DonationView{
@@ -67,57 +67,100 @@ public class DonationViewImpl implements DonationView{
         btSolicitacoes = (Button) rootView.findViewById(R.id.bt_solicitacoes);
     }
 
+    /**
+     * Exibe titulo no campo de titulo
+     * @param titulo
+     */
     @Override
     public void setTitulo(String titulo) {
         tvTitulo.setText(titulo);
     }
 
+    /**
+     * Exibe categoria
+     * @param categoria
+     */
     @Override
     public void setCategoria(String categoria) {
         tvCategoria.setText(categoria);
     }
 
+    /**
+     * Exibe descrição
+     * @param descricao
+     */
     @Override
     public void setDescricao(String descricao) {
         tvDescricao.setText(descricao);
     }
 
+    /**
+     * Exibe imagem no imageView
+     * @param imagem
+     */
     @Override
     public void setImagem(Bitmap imagem) {
         ivImagem.setVisibility(View.VISIBLE);
         ivImagem.setImageBitmap(imagem);
     }
 
+    /**
+     * Configura listener do botão de exibir imagem
+     * @param listener
+     */
     @Override
     public void setImageListener(ImageButtonListener listener) {
         imageButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de solicitar
+     * @param listener
+     */
     @Override
     public void setSolicitarListener(SolicitarButtonListener listener) {
         solicitarButtonListener = listener;
     }
 
+    /**
+     * Configura listener do botão de solicitações
+     * @param listener
+     */
     @Override
     public void setSolicitacoesListener(SolicitacoesButtonListener listener) {
         solicitacoesButtonListener = listener;
     }
 
+    /**
+     * Desabilita botão de solicitar
+     */
     @Override
     public void disableSolicitarButton() {
         btSolicitar.setEnabled(false);
     }
 
+    /**
+     * Altera texto do botão
+     * @param text
+     */
     @Override
     public void setBottomButtonText(String text) {
         btSolicitar.setText(text);
     }
 
+    /**
+     * Altera texto do botão
+     * @param text
+     */
     @Override
     public void setTopButtonText(String text) {
         btSolicitacoes.setText(text);
     }
 
+    /**
+     * Altera visibilidade do botão
+     * @param visibility
+     */
     @Override
     public void visibilityTopButton(boolean visibility) {
         if(visibility){
