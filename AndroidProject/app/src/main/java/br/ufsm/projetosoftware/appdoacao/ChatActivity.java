@@ -9,6 +9,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
@@ -27,7 +28,7 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.ChatView;
 import br.ufsm.projetosoftware.appdoacao.view.ChatViewImpl;
 
-public class ChatActivity extends AppCompatActivity implements ChatView.SendButtonListener{
+public class ChatActivity extends AppCompatActivity implements ChatView.SendButtonListener, ChatView.DoarButtonListener{
 
     private ChatView chatView;
     private ChatTableController chatTableController;
@@ -42,7 +43,11 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
     private int idSolicitacao;
     private SimpleCursorAdapter adapter;
     private Handler refreshChatHandler;
-
+    private int intent;
+    public final static int IDOADOR = 0;
+    public final static int ISOLICITANTE = 1;
+    TimerTask timerTask;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,7 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         setContentView(R.layout.activity_chat);
         chatView = new ChatViewImpl(getWindow().getDecorView().getRootView());
         chatView.setSendButtonListener(this);
-        extras = getIntent().getExtras();
-        idSolicitacao = extras.getInt("idSolicitacao");
+        initialize();
         loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         chatURL = getString(R.string.chatURL);
         mensagemURL = getString(R.string.mensagemURL);
@@ -61,6 +65,24 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
         setChatAdapter();
         startHandler();
         refreshChat();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            timer.cancel();
+            timer.purge();
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void initialize() {
+        extras = getIntent().getExtras();
+        idSolicitacao = extras.getInt("idSolicitacao");
+        intent = extras.getInt("intent");
     }
 
     private void setChatAdapter(){
@@ -145,13 +167,18 @@ public class ChatActivity extends AppCompatActivity implements ChatView.SendButt
                 getChat();
             }
         }, 500);*/
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        timer = new Timer();
+        timerTask = new TimerTask() {
             @Override
             public void run() {
                 refreshChatHandler.obtainMessage(1).sendToTarget();
             }
         };
         timer.schedule(timerTask, 1, 1000);
+    }
+
+    @Override
+    public void onDoarButtonClick() {
+        //TODO avaliacao
     }
 }

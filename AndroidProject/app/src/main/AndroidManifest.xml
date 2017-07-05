@@ -36,7 +36,9 @@
         <activity android:name=".RequestActivity" />
         <activity android:name=".ListRequestActivity" />
         <activity android:name=".SolicitacoesActivity" />
-        <activity android:name=".AvaliacaoActivity"></activity>
+        <activity android:name=".AvaliacaoActivity" />
+        <activity android:name=".OpcoesSolicitacaoActivity" />
+        <activity android:name=".ListAvaliacoesActivity"></activity>
     </application>
 
 </manifest>

@@ -70,7 +70,10 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
                 startActivity(toDonationActivity);
             }
             else{
-                //TODO avaliacao
+                Intent toAvaliacao = new Intent(ListRequestActivity.this, AvaliacaoActivity.class);
+                toAvaliacao.putExtra("idSolicitacao", produto.getSid());
+                toAvaliacao.putExtra("idAvaliado", produto.getDoador());
+                startActivity(toAvaliacao);
             }
         }
 

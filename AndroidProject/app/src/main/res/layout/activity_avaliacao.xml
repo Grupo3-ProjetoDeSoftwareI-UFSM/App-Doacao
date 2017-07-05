@@ -25,7 +25,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/tvAvalie"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:numStars="5"
+        android:stepSize="1"/>
 
     <TextView
         android:id="@+id/tvComente"

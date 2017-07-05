@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="20dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    tools:context="br.ufsm.projetosoftware.appdoacao.OpcoesSolicitacaoActivity">
+
+    <TextView
+        android:id="@+id/tvInstruçõesDoacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20dp"
+        android:text="A entrega da doação deverá ser combinada entre o doador e beneficiário utilizando o chat, após a entrega, utilize o botão 'Concluir Doação' para avaliar o usuário e finalizar a doação."
+        tools:layout_editor_absoluteY="0dp" />
+
+    <Button
+        android:id="@+id/btAvaliacoes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvInstruçõesDoacao"
+        android:text="Avaliacões do usuário"
+        />
+
+    <Button
+        android:id="@+id/btChat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/btAvaliacoes"
+        android:text="iniciar chat"/>
+
+    <Button
+        android:id="@+id/btConcluiDoacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/btChat"
+        android:text="Concluir doação"/>
+
+
+</android.support.constraint.ConstraintLayout>

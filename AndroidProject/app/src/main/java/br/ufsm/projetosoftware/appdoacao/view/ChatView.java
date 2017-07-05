@@ -12,9 +12,17 @@ public interface ChatView {
         void onSendButtonClick();
     }
 
+    interface DoarButtonListener{
+        void onDoarButtonClick();
+    }
+
     String getMessage();
 
     void setSendButtonListener(SendButtonListener listener);
+
+    void setDoarButtonListener(DoarButtonListener listener);
+
+    void setDoarButtonVisible();
 
     void setChatAdapter(ListAdapter adapter);
 

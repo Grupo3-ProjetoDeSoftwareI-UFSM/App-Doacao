@@ -13,4 +13,6 @@
     <string name="chatURL">http://www.appdoacao.esy.es/getChat.php</string>
     <string name="mensagemURL">http://www.appdoacao.esy.es/postMensagem.php</string>
     <string name="avaliacaoURL">http://www.appdoacao.esy.es/postAvaliacao.php</string>
+    <string name="listAvaliacoesURL">http://www.appdoacao.esy.es/avaliacoesList.php</string>
+    <string name="updateDoacaoURL">http://www.appdoacao.esy.es/updateDoacao.php</string>
 </resources>

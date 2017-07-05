@@ -54,10 +54,11 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
     @Override
     public void onSolicitacaoClick(int id) {
         Solicitacao solicitacao = listaSolicitacao.get(id);
-        Intent toChat = new Intent(SolicitacoesActivity.this, ChatActivity.class);
-        toChat.putExtra("idSolicitacao", solicitacao.getSid());
-        toChat.putExtra("intent", ChatActivity.IDOADOR);
-        startActivity(toChat);
+        Intent toOpcoesSolicitacao = new Intent(SolicitacoesActivity.this, OpcoesSolicitacaoActivity.class);
+        toOpcoesSolicitacao.putExtra("idSolicitacao", solicitacao.getSid());
+        toOpcoesSolicitacao.putExtra("idAvaliado", solicitacao.getInteressado());
+        toOpcoesSolicitacao.putExtra("intent", ChatActivity.IDOADOR);
+        startActivity(toOpcoesSolicitacao);
     }
 
     private void getList(){

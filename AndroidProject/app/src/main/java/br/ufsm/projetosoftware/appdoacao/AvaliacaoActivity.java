@@ -1,5 +1,6 @@
 package br.ufsm.projetosoftware.appdoacao;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +25,9 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
     private IResultString resultCallback = null;
     private VolleyServiceString volleyService;
     private static String POSTAVALIACAO = "POSTAVALIACAO";
+    private static String UPDATEDOACAO = "UPDATEDOACAO";
     private String AVALIACAO_URL;
+    private String UPDATE_DOACAO_URL;
     private SharedPreferences loginSettings;
     private Bundle extras;
 
@@ -35,7 +38,9 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
         avaliacaoView = new AvaliacaoViewImpl(getWindow().getDecorView().getRootView());
         avaliacaoView.setConfirmarButtonListener(this);
         extras = getIntent().getExtras();
+        loginSettings = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         AVALIACAO_URL = getString(R.string.avaliacaoURL);
+        UPDATE_DOACAO_URL = getString(R.string.updateDoacaoURL);
         initCallback();
         volleyService = new VolleyServiceString(resultCallback, this);
     }
@@ -47,8 +52,11 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
         avaliacao.setComentario(avaliacaoView.getComentario());
         avaliacao.setIdSolicitacao(extras.getInt("idSolicitacao"));
         avaliacao.setIdAvaliado(extras.getInt("idAvaliado"));
-        avaliacao.setIdAvaliador(extras.getInt("idAvaliador"));
+        avaliacao.setIdAvaliador(loginSettings.getInt("uid", -1));
         String avaliacaoJson = new Gson().toJson(avaliacao, Avaliacao.class);
+        if(extras.containsKey("intent")){
+            volleyService.postDataVolley(UPDATEDOACAO, UPDATE_DOACAO_URL, avaliacaoJson);
+        }
         volleyService.postDataVolley(POSTAVALIACAO, AVALIACAO_URL, avaliacaoJson);
     }
 
