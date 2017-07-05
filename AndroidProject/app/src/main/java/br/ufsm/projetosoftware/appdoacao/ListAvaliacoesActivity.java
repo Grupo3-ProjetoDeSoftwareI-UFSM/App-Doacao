@@ -26,6 +26,9 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.ListAvaliacoesView;
 import br.ufsm.projetosoftware.appdoacao.view.ListAvaliacoesViewImpl;
 
+/**
+ * Activity da tela de Lista de Avaliações
+ */
 public class ListAvaliacoesActivity extends Activity {
 
     ListAvaliacoesView listAvaliacoesView;
@@ -48,6 +51,9 @@ public class ListAvaliacoesActivity extends Activity {
         getList();
     }
 
+    /**
+     * Solicita lista de avaliações do solicitante para o servidor.
+     */
     private void getList(){
         AvaliacoesPost avaliacoesPost = new AvaliacoesPost();
         avaliacoesPost.setIdSolicitacao(extras.getInt("idSolicitacao"));
@@ -55,6 +61,10 @@ public class ListAvaliacoesActivity extends Activity {
         volleyService.postDataVolley(POSTLIST, listURL, avaliacoesPostJson);
     }
 
+    /**
+     * Exibe lista retornada pelo servidor no ListView
+     * @param response
+     */
     private void postListSucess(String response) {
         Log.d("ListAvaliacoes", response);
         AvaliacoesResponse avaliacoesResponse = new Gson().fromJson(response, AvaliacoesResponse.class);
@@ -82,6 +92,11 @@ public class ListAvaliacoesActivity extends Activity {
         }
     }
 
+    /**
+     * Recebe resposta de sucesso ou falho na comunicação com o servidor.
+     * Executa o método notifySuccess e passa a resposta pro método postListSucess em caso de sucesso.
+     * Notifica o usuário do erro na conexão em caso de falha.
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
             @Override

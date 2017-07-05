@@ -24,6 +24,9 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.SolicitacoesView;
 import br.ufsm.projetosoftware.appdoacao.view.SolicitacoesViewImpl;
 
+/**
+ * Activity da tela de exibição de solicitações de uma doação
+ */
 public class SolicitacoesActivity extends AppCompatActivity implements SolicitacoesView.SolicitacaoListClick{
 
     private SolicitacoesView solicitacoesView;
@@ -51,6 +54,10 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
         getList();
     }
 
+    /**
+     * Inicia activity OpcoesSolicitacaoActivity passando os dados do item selecionado da lista.
+     * @param id
+     */
     @Override
     public void onSolicitacaoClick(int id) {
         Solicitacao solicitacao = listaSolicitacao.get(id);
@@ -61,6 +68,9 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
         startActivity(toOpcoesSolicitacao);
     }
 
+    /**
+     * Solicita a lista de solicitações da doação ao servidor.
+     */
     private void getList(){
         SolicitacoesPost solicitacoesPost = new SolicitacoesPost();
         solicitacoesPost.setDoacao(extras.getInt("doacaoId"));
@@ -70,6 +80,10 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
         volleyService.postDataVolley(POSTLIST, listURL, solicitacoesPostJson);
     }
 
+    /**
+     * Carrega lista enviado pelo servidor na ListView
+     * @param response
+     */
     private void postListSucess(String response) {
         Log.d("ListSolicitacoes", response);
         SolicitacoesResponse solicitaoesResponse = new Gson().fromJson(response, SolicitacoesResponse.class);
@@ -84,6 +98,11 @@ public class SolicitacoesActivity extends AppCompatActivity implements Solicitac
         }
     }
 
+    /**
+     * Recebe resposta de sucesso ou falho na comunicação com o servidor.
+     * Executa o método notifySuccess e passa a resposta pro método postListSucess em caso de sucesso.
+     * Notifica o usuário do erro na conexão em caso de falha.
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
             @Override

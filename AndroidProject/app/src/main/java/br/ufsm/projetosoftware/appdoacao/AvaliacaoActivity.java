@@ -19,6 +19,9 @@ import br.ufsm.projetosoftware.appdoacao.network.VolleyServiceString;
 import br.ufsm.projetosoftware.appdoacao.view.AvaliacaoView;
 import br.ufsm.projetosoftware.appdoacao.view.AvaliacaoViewImpl;
 
+/**
+ * Activity da tela de avaliação do doador ou beneficiário
+ */
 public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoView.ConfirmarButtonListener {
 
     private AvaliacaoView avaliacaoView;
@@ -45,6 +48,9 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
         volleyService = new VolleyServiceString(resultCallback, this);
     }
 
+    /**
+     * Envia dados da avaliação para o servidor ao clicar no botão de confirmação
+     */
     @Override
     public void onConfirmarButtonClick() {
         Avaliacao avaliacao = new Avaliacao();
@@ -60,6 +66,11 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
         volleyService.postDataVolley(POSTAVALIACAO, AVALIACAO_URL, avaliacaoJson);
     }
 
+    /**
+     * Recebe a resposta do servidor sobre o cadastro de nova avaliação.
+     * Volta a tela inicial em caso de sucesso.
+     * @param response
+     */
     private void postAvaliacaoSuccess(String response){
         AvaliacaoResponse avaliacaoResponse = new Gson().fromJson(response, AvaliacaoResponse.class);
         if(avaliacaoResponse.getSuccess() == 0){
@@ -71,6 +82,11 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
 
     }
 
+    /**
+     * Recebe resposta de sucesso ou falho na comunicação com o servidor.
+     * Executa o método notifySuccess e passa a resposta pro método postAvaliacaoSucess em caso de sucesso.
+     * Notifica o usuário do erro na conexão em caso de falha.
+     */
     private void initCallback(){
         resultCallback = new IResultString() {
             /**

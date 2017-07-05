@@ -7,6 +7,9 @@ import android.os.Bundle;
 import br.ufsm.projetosoftware.appdoacao.view.OpcoesSolicitacaoView;
 import br.ufsm.projetosoftware.appdoacao.view.OpcoesSolicitacaoViewImpl;
 
+/**
+ * Activity da tela de Opcoes de Solicitacao
+ */
 public class OpcoesSolicitacaoActivity extends AppCompatActivity
         implements OpcoesSolicitacaoView.AvaliacoesButtonListener,
         OpcoesSolicitacaoView.ChatButtonListener,
@@ -27,6 +30,9 @@ public class OpcoesSolicitacaoActivity extends AppCompatActivity
         extras = getIntent().getExtras();
     }
 
+    /**
+     * Abre a lista de avaliações do usuário solicitante
+     */
     @Override
     public void onAvaliacoesButtonClick() {
         Intent toListAvaliacoes = new Intent(OpcoesSolicitacaoActivity.this, ListAvaliacoesActivity.class);
@@ -34,6 +40,9 @@ public class OpcoesSolicitacaoActivity extends AppCompatActivity
         startActivity(toListAvaliacoes);
     }
 
+    /**
+     * Inicia o chat com o usuário solicitante
+     */
     @Override
     public void onChatButtonClick() {
         Intent toChat = new Intent(OpcoesSolicitacaoActivity.this, ChatActivity.class);
@@ -42,6 +51,9 @@ public class OpcoesSolicitacaoActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Inicia avaliação do usuário solicitante pelo doador
+     */
     @Override
     public void onConcluirDoacaoButtonClick() {
         Intent toAvaliacao = new Intent(OpcoesSolicitacaoActivity.this, AvaliacaoActivity.class);
