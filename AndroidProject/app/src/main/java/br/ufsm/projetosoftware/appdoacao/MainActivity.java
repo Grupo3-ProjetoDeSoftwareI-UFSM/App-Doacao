@@ -77,7 +77,7 @@ public class MainActivity
      */
     @Override
     public void onSairClick() {
-        loginSettings.edit().clear();
+        loginSettings.edit().clear().commit();
         Intent toLogin = new Intent(MainActivity.this, LoginActivity.class);
         toLogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(toLogin);
