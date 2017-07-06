@@ -57,14 +57,19 @@ public class AvaliacaoActivity extends AppCompatActivity implements AvaliacaoVie
      */
     @Override
     public void onConfirmarButtonClick() {
+        Boolean isDoador = extras.containsKey("intent");
         Avaliacao avaliacao = new Avaliacao();
         avaliacao.setAvaliacao(avaliacaoView.getAvaliacao());
         avaliacao.setComentario(avaliacaoView.getComentario());
         avaliacao.setIdSolicitacao(extras.getInt("idSolicitacao"));
         avaliacao.setIdAvaliado(extras.getInt("idAvaliado"));
         avaliacao.setIdAvaliador(loginSettings.getInt("uid", -1));
+        if(!isDoador){
+            avaliacao.setBeneficiario(1);
+        }
         String avaliacaoJson = new Gson().toJson(avaliacao, Avaliacao.class);
-        if(extras.containsKey("intent")){
+        Log.d("avaliacaoJson", avaliacaoJson);
+        if(isDoador){
             volleyService.postDataVolley(UPDATEDOACAO, UPDATE_DOACAO_URL, avaliacaoJson);
         }
         volleyService.postDataVolley(POSTAVALIACAO, AVALIACAO_URL, avaliacaoJson);

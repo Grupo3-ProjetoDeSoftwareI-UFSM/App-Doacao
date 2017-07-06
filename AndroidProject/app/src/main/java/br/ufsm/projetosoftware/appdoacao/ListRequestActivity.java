@@ -62,7 +62,7 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
     public void onSelectList(int id) {
         Produto produto = listaProduto.get(id);
         if(produto != null){
-            if(produto.getStatus() == StatusEnum.STATUS1.toString()){
+            if(produto.getStatus().equals(StatusEnum.STATUS1.toString())){
                 Intent toDonationActivity = new Intent(ListRequestActivity.this, DonationActivity.class);
                 toDonationActivity.putExtra("Titulo", produto.getTitulo());
                 toDonationActivity.putExtra("Categoria", produto.getTipoCategoria());
@@ -73,7 +73,7 @@ public class ListRequestActivity extends AppCompatActivity implements ListReques
                 toDonationActivity.putExtra("intent", DonationActivity.IVISUALIZA);
                 startActivity(toDonationActivity);
             }
-            else{
+            else if(produto.getStatus().equals(StatusEnum.STATUS2.toString()) ){
                 Intent toAvaliacao = new Intent(ListRequestActivity.this, AvaliacaoActivity.class);
                 toAvaliacao.putExtra("idSolicitacao", produto.getSid());
                 toAvaliacao.putExtra("idAvaliado", produto.getDoador());

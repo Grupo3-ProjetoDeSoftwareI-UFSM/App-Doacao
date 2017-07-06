@@ -12,6 +12,7 @@ public class Avaliacao {
     Integer idAvaliador;
     Float avaliacao;
     String comentario;
+    Integer beneficiario;
 
     public Avaliacao() {
     }
@@ -62,5 +63,13 @@ public class Avaliacao {
 
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+
+    public Integer getBeneficiario() {
+        return beneficiario;
+    }
+
+    public void setBeneficiario(Integer beneficiario) {
+        this.beneficiario = beneficiario;
     }
 }
