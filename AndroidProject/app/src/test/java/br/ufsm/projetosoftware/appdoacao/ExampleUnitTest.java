@@ -1,7 +1,6 @@
 package br.ufsm.projetosoftware.appdoacao;
 
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 /**
